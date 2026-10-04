@@ -1,0 +1,1326 @@
+fileFormatVersion: 2
+guid: 1e5a514baa3a6e14e80a07b2ad39fbaf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8449323006086412516
+    second: text_pencil_0
+  - first:
+      213: 2341934132710798870
+    second: text_pencil_1
+  - first:
+      213: -5189159598786134999
+    second: text_pencil_2
+  - first:
+      213: 3335936343594554714
+    second: text_pencil_3
+  - first:
+      213: -6055874803759984785
+    second: text_pencil_4
+  - first:
+      213: -7205222386975265525
+    second: text_pencil_5
+  - first:
+      213: -5287594623670892933
+    second: text_pencil_6
+  - first:
+      213: -1719079900190673592
+    second: text_pencil_7
+  - first:
+      213: -8051871338507714710
+    second: text_pencil_8
+  - first:
+      213: 7373853503598386304
+    second: text_pencil_9
+  - first:
+      213: -4426223167322735622
+    second: text_pencil_10
+  - first:
+      213: 6295733765068155414
+    second: text_pencil_11
+  - first:
+      213: -557489111030612848
+    second: text_pencil_12
+  - first:
+      213: 2750267581575678109
+    second: text_pencil_13
+  - first:
+      213: 1353665940749228364
+    second: text_pencil_14
+  - first:
+      213: 8471066178457003879
+    second: text_pencil_15
+  - first:
+      213: -2107481150535704861
+    second: text_pencil_16
+  - first:
+      213: 4429227752008866776
+    second: text_pencil_17
+  - first:
+      213: -4348048632824515545
+    second: text_pencil_18
+  - first:
+      213: 5183962344430899007
+    second: text_pencil_19
+  - first:
+      213: 6545363802696638920
+    second: text_pencil_20
+  - first:
+      213: 5904745418546369100
+    second: text_pencil_21
+  - first:
+      213: -780670483070485523
+    second: text_pencil_22
+  - first:
+      213: 3152252209172083585
+    second: text_pencil_23
+  - first:
+      213: 959753883939654982
+    second: text_pencil_24
+  - first:
+      213: -8643925562605623937
+    second: text_pencil_25
+  - first:
+      213: -7523478051715449913
+    second: text_pencil_26
+  - first:
+      213: -7733651097190162959
+    second: text_pencil_27
+  - first:
+      213: 4548749478307139291
+    second: text_pencil_28
+  - first:
+      213: 1570688304668344336
+    second: text_pencil_29
+  - first:
+      213: 4381118716283864760
+    second: text_pencil_30
+  - first:
+      213: 8314759728411611141
+    second: text_pencil_31
+  - first:
+      213: 2718716337692078295
+    second: text_pencil_32
+  - first:
+      213: 2596421173334956145
+    second: text_pencil_33
+  - first:
+      213: -2489907130829604469
+    second: text_pencil_34
+  - first:
+      213: 8326751712567439749
+    second: text_pencil_35
+  - first:
+      213: 944470112679682521
+    second: text_pencil_36
+  - first:
+      213: -8054257399892799770
+    second: text_pencil_37
+  - first:
+      213: 360348474142399512
+    second: text_pencil_38
+  - first:
+      213: -6175202878557156317
+    second: text_pencil_39
+  - first:
+      213: 4718479420678125721
+    second: text_pencil_40
+  - first:
+      213: 5351674570950028609
+    second: text_pencil_41
+  - first:
+      213: 3805723881329346216
+    second: text_pencil_42
+  - first:
+      213: 2703239073290527851
+    second: text_pencil_43
+  - first:
+      213: -4109747636977413419
+    second: text_pencil_44
+  - first:
+      213: -5504044359967705210
+    second: text_pencil_45
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 22
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: text_pencil_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 301
+        width: 57
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c170fad0e79fdba80800000000000000
+      internalID: -8449323006086412516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 231
+        width: 48
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 616f6938fa8308020800000000000000
+      internalID: 2341934132710798870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_2
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 236
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c3b8796d66cf7b0800000000000000
+      internalID: -5189159598786134999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_3
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 231
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a55d4411e60ab4e20800000000000000
+      internalID: 3335936343594554714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_4
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 235
+        width: 45
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6fc5ad83f535fba0800000000000000
+      internalID: -6055874803759984785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_5
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 260
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0da5a8f968e10c90800000000000000
+      internalID: -7205222386975265525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_6
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 235
+        width: 9
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b76c4d364b0be96b0800000000000000
+      internalID: -5287594623670892933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_7
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 235
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 845fe9850f99428e0800000000000000
+      internalID: -1719079900190673592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_8
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 233
+        width: 75
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f3913ada1024090800000000000000
+      internalID: -8051871338507714710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_9
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 233
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c50c371b0355660800000000000000
+      internalID: 7373853503598386304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_10
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 233
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afbbf1ffa75e292c0800000000000000
+      internalID: -4426223167322735622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_11
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 234
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ae15bc080fe5750800000000000000
+      internalID: 6295733765068155414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_12
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 235
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09c3fd27b966348f0800000000000000
+      internalID: -557489111030612848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_13
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 238
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98471d3bc9ea2620800000000000000
+      internalID: 2750267581575678109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_14
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 235
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4917e6400039c210800000000000000
+      internalID: 1353665940749228364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_15
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 219
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76761c3cec54f8570800000000000000
+      internalID: 8471066178457003879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_16
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 233
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eedc7b3f09b0c2e0800000000000000
+      internalID: -2107481150535704861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_17
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 235
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8db5ac36c27c77d30800000000000000
+      internalID: 4429227752008866776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_18
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 173
+        width: 50
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7243f5e2ec0a8a3c0800000000000000
+      internalID: -4348048632824515545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_19
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 182
+        width: 115
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f0ec4594221f740800000000000000
+      internalID: 5183962344430899007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_20
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 184
+        width: 41
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c1ee6123bdc5da50800000000000000
+      internalID: 6545363802696638920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_21
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 187
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4252996caed1f150800000000000000
+      internalID: 5904745418546369100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_22
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 184
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb73f1f4508a25f0800000000000000
+      internalID: -780670483070485523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_23
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 172
+        width: 63
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1837422deac0fbb20800000000000000
+      internalID: 3152252209172083585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_24
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 181
+        width: 110
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d460c821bb15d00800000000000000
+      internalID: 959753883939654982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_25
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 133
+        width: 60
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7529ff8f7b9a0880800000000000000
+      internalID: -8643925562605623937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_26
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 133
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb7d04b29c379790800000000000000
+      internalID: -7523478051715449913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_27
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 133
+        width: 87
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd9b2f3d4d8ca490800000000000000
+      internalID: -7733651097190162959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_28
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 134
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bde8dbadc87602f30800000000000000
+      internalID: 4548749478307139291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_29
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 139
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0100e94f0b43cc510800000000000000
+      internalID: 1570688304668344336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_30
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 86
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b64ae2a24cdccc30800000000000000
+      internalID: 4381118716283864760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_31
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 36
+        width: 38
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50092b46be5f36370800000000000000
+      internalID: 8314759728411611141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_32
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 86
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d0ff21da12dab520800000000000000
+      internalID: 2718716337692078295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_33
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 86
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 178deebfc47580420800000000000000
+      internalID: 2596421173334956145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_34
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 47
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89703718a2127dd0800000000000000
+      internalID: -2489907130829604469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_35
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 48
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5813578c0909e8370800000000000000
+      internalID: 8326751712567439749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_36
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 44
+        width: 13
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d1ee3f309e6b1d00800000000000000
+      internalID: 944470112679682521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_37
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 63
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ee04dd6197893090800000000000000
+      internalID: -8054257399892799770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_38
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 43
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c9c9c2707300500800000000000000
+      internalID: 360348474142399512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_39
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 47
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c81a713b54d4aa0800000000000000
+      internalID: -6175202878557156317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_40
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 46
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998b28598086b7140800000000000000
+      internalID: 4718479420678125721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_41
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 42
+        width: 25
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14da7fafaa7f44a40800000000000000
+      internalID: 5351674570950028609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_42
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 42
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a64bdbd4b5a0d430800000000000000
+      internalID: 3805723881329346216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_43
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 43
+        width: 93
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6420726d95d38520800000000000000
+      internalID: 2703239073290527851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_44
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 40
+        width: 13
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d2d57d6c4e37f6c0800000000000000
+      internalID: -4109747636977413419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_pencil_45
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 50
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 687f128f0d4bd93b0800000000000000
+      internalID: -5504044359967705210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      text_pencil_0: -8449323006086412516
+      text_pencil_1: 2341934132710798870
+      text_pencil_10: -4426223167322735622
+      text_pencil_11: 6295733765068155414
+      text_pencil_12: -557489111030612848
+      text_pencil_13: 2750267581575678109
+      text_pencil_14: 1353665940749228364
+      text_pencil_15: 8471066178457003879
+      text_pencil_16: -2107481150535704861
+      text_pencil_17: 4429227752008866776
+      text_pencil_18: -4348048632824515545
+      text_pencil_19: 5183962344430899007
+      text_pencil_2: -5189159598786134999
+      text_pencil_20: 6545363802696638920
+      text_pencil_21: 5904745418546369100
+      text_pencil_22: -780670483070485523
+      text_pencil_23: 3152252209172083585
+      text_pencil_24: 959753883939654982
+      text_pencil_25: -8643925562605623937
+      text_pencil_26: -7523478051715449913
+      text_pencil_27: -7733651097190162959
+      text_pencil_28: 4548749478307139291
+      text_pencil_29: 1570688304668344336
+      text_pencil_3: 3335936343594554714
+      text_pencil_30: 4381118716283864760
+      text_pencil_31: 8314759728411611141
+      text_pencil_32: 2718716337692078295
+      text_pencil_33: 2596421173334956145
+      text_pencil_34: -2489907130829604469
+      text_pencil_35: 8326751712567439749
+      text_pencil_36: 944470112679682521
+      text_pencil_37: -8054257399892799770
+      text_pencil_38: 360348474142399512
+      text_pencil_39: -6175202878557156317
+      text_pencil_4: -6055874803759984785
+      text_pencil_40: 4718479420678125721
+      text_pencil_41: 5351674570950028609
+      text_pencil_42: 3805723881329346216
+      text_pencil_43: 2703239073290527851
+      text_pencil_44: -4109747636977413419
+      text_pencil_45: -5504044359967705210
+      text_pencil_5: -7205222386975265525
+      text_pencil_6: -5287594623670892933
+      text_pencil_7: -1719079900190673592
+      text_pencil_8: -8051871338507714710
+      text_pencil_9: 7373853503598386304
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
