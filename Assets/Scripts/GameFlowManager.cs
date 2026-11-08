@@ -2,135 +2,207 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; 
-using TMPro; // TextMeshPro 
+using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
-public class CandyWave // insert in GameManager
+public class CandyWave
 {
-    public GameObject candyPrefab; 
-    public int amount;     
-    public Sprite candyIcon;       
-         
+    public GameObject candyPrefab;
+    public int amount;
+    public Sprite candyIcon;
 }
 
 public class GameFlowManager : MonoBehaviour
 {
-    [Header("-- make candy settings--")]
-    public CandyWave[] candyWaves; 
-    public Transform spawnPoint;   
-    public float spawnInterval = 0.5f; 
+    [Header("-- Make Candy Settings --")]
+    public CandyWave[] candyWaves;
+    public Transform spawnPoint;
+    public float spawnInterval = 0.5f;
     public float spawnRandomOffset = 0.05f;
 
-    [Header("-- preview UI setting --")]
-    public Transform previewPanel;       
+    [Header("-- Preview UI Setting --")]
+    public Transform previewPanel;
     public GameObject previewItemPrefab;
     public GameObject arrowPrefab;
 
-    [Header("-- dynamic UI tracking list --")]
     private List<GameObject> spawnedItems = new List<GameObject>();
     private List<GameObject> spawnedArrows = new List<GameObject>();
 
-    [Header("-- UI button setting --")]
-    public Image playPauseButtonImage; 
-    public Sprite playIcon;            
-    public Sprite pauseIcon; 
+    [Header("-- UI Button Setting --")]
+    public Image playPauseButtonImage;
+    public Sprite playIcon;
+    public Sprite pauseIcon;
 
-    [Header("-- pipe anim --")]
-    public Transform pipeTransform; 
-    public float pipeSquashScale = 0.9f; // 往上縮到多短 
-    public float pipeSquashScale_x = 1.1f; // 往上縮到多短 
-    public float pipeSquashTime = 0.05f;  // 縮上去要多久
-    public float pipeRecoverTime = 0.1f; // 彈回來要多久  
+    [Header("-- Pipe Animation --")]
+    public Transform pipeTransform;
+    public float pipeSquashScale = 0.9f;     // Vertical squash scale factor
+    public float pipeSquashScale_x = 1.1f;   // Horizontal stretch scale factor
+    public float pipeSquashTime = 0.05f;     // Duration to squash
+    public float pipeRecoverTime = 0.1f;     // Duration to recover
 
-    // ----------
+    [Header("-- Win Condition --")]
+    public Monster[] allMonstersInLevel;
+    public GameObject victoryPanel;
 
-    private Coroutine spawnCoroutine; 
-    private bool isPlaying = false;    
-    private int spawnedCount = 0;      
-    
-    private List<GameObject> spawnQueue = new List<GameObject>(); 
+    private Coroutine spawnCoroutine;
+    private bool isPlaying = false;
+    private int spawnedCount = 0;
+
+    private List<GameObject> spawnQueue = new List<GameObject>();
+    private int[] remainingWaveAmounts;
     private int totalCandies = 0;
     private int currentWaveIndex = 0;
-
-
     private bool isGameEnded = false;
 
     void Start()
     {
-        foreach (CandyWave wave in candyWaves)
+        InitializeLevelIfNeeded();
+        BuildSpawnQueue();
+        GeneratePreviewUI();
+    }
+
+    /// <summary>
+    /// Checks if a LevelData asset should be loaded into the scene on startup,
+    /// and ensures allMonstersInLevel is populated.
+    /// </summary>
+    private void InitializeLevelIfNeeded()
+    {
+        LevelEditorManager editorManager = GetComponent<LevelEditorManager>();
+        if (editorManager == null)
         {
+            editorManager = FindAnyObjectByType<LevelEditorManager>();
+        }
+
+        LevelData levelToLoad = null;
+        if (editorManager != null)
+        {
+            levelToLoad = editorManager.GetRuntimeLevelDataToLoad();
+        }
+        else if (LevelController.HasActiveLevelRequest)
+        {
+            levelToLoad = LevelController.GetCurrentLevelData();
+        }
+
+        if (levelToLoad != null)
+        {
+            if (editorManager == null)
+            {
+                editorManager = gameObject.AddComponent<LevelEditorManager>();
+            }
+            editorManager.ApplyLevelDataToScene(levelToLoad);
+        }
+
+        // Auto-discover monsters in the scene if none are assigned or if references are missing
+        bool needsMonsterRefresh = allMonstersInLevel == null || allMonstersInLevel.Length == 0;
+        if (!needsMonsterRefresh)
+        {
+            foreach (Monster m in allMonstersInLevel)
+            {
+                if (m == null)
+                {
+                    needsMonsterRefresh = true;
+                    break;
+                }
+            }
+        }
+
+        if (needsMonsterRefresh)
+        {
+            allMonstersInLevel = FindObjectsByType<Monster>(FindObjectsInactive.Exclude);
+        }
+    }
+
+    /// <summary>
+    /// Rebuilds the candy spawn queue and wave tracking arrays from candyWaves.
+    /// </summary>
+    public void BuildSpawnQueue()
+    {
+        spawnQueue.Clear();
+        spawnedCount = 0;
+        currentWaveIndex = 0;
+
+        if (candyWaves == null)
+        {
+            remainingWaveAmounts = new int[0];
+            totalCandies = 0;
+            return;
+        }
+
+        remainingWaveAmounts = new int[candyWaves.Length];
+        for (int w = 0; w < candyWaves.Length; w++)
+        {
+            CandyWave wave = candyWaves[w];
+            if (wave == null || wave.candyPrefab == null) continue;
+
+            remainingWaveAmounts[w] = wave.amount;
             for (int i = 0; i < wave.amount; i++)
             {
                 spawnQueue.Add(wave.candyPrefab);
             }
         }
-        totalCandies = spawnQueue.Count; 
 
-        GeneratePreviewUI();
+        totalCandies = spawnQueue.Count;
     }
 
     void Update()
     {
-        if (isGameEnded) return; 
+        if (isGameEnded) return;
 
-        Debug.Log("still running");
         CheckWinCondition();
     }
 
-
-    [Header("--Win Or Not--")]
-    public Monster[] allMonstersInLevel; 
-
-    public GameObject victoryPanel;
-
-
-    private void CheckWinCondition(){
+    private void CheckWinCondition()
+    {
         if (allMonstersInLevel == null || allMonstersInLevel.Length == 0) return;
-        
-        if (isGameEnded) return; 
+        if (isGameEnded) return;
 
         bool allSatisfied = true;
-        
-        foreach (Monster m in allMonstersInLevel){
-            if (m.isSatisfied == false){
-                allSatisfied = false; 
-                break; 
+
+        foreach (Monster m in allMonstersInLevel)
+        {
+            if (m == null || !m.isSatisfied)
+            {
+                allSatisfied = false;
+                break;
             }
         }
 
-        if (allSatisfied){
-            isGameEnded = true; 
-            StartCoroutine(VictoryDelayRoutine()); 
+        if (allSatisfied)
+        {
+            isGameEnded = true;
+            StartCoroutine(VictoryDelayRoutine());
         }
     }
 
-    // wait after winning. so the anim won't be cut
-    private System.Collections.IEnumerator VictoryDelayRoutine(){
+    // Wait briefly after winning so the eating animation can finish playing
+    private IEnumerator VictoryDelayRoutine()
+    {
         yield return new WaitForSeconds(0.5f);
 
-        Debug.Log("All Eaten! Victory!");
-        
-        if (victoryPanel != null && !victoryPanel.activeSelf){
+        Debug.Log("All candies eaten! Victory!");
+
+        if (victoryPanel != null && !victoryPanel.activeSelf)
+        {
             victoryPanel.SetActive(true);
-            Time.timeScale = 0f; 
-            
-            if (AudioManager.instance != null){
-                // Level_2 (last lavel): no music
-                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Level_3"){
+            Time.timeScale = 0f;
+
+            if (AudioManager.instance != null)
+            {
+                // Fade out BGM on the final level
+                if (LevelController.IsFinalLevel())
+                {
                     AudioManager.instance.FadeOutBGM(1.5f);
                 }
             }
         }
     }
 
-    // --- preview panel with arrows ---
-    private void GeneratePreviewUI()
+    // Build the candy preview queue UI with arrows between waves
+    public void GeneratePreviewUI()
     {
-        if (previewPanel == null || previewItemPrefab == null) return;
+        if (previewPanel == null || previewItemPrefab == null || candyWaves == null) return;
 
-    
-        // no panels for testing
         foreach (Transform child in previewPanel)
         {
             Destroy(child.gameObject);
@@ -138,20 +210,22 @@ public class GameFlowManager : MonoBehaviour
         spawnedItems.Clear();
         spawnedArrows.Clear();
 
-
-        for (int i = 0; i < candyWaves.Length; i++){
+        for (int i = 0; i < candyWaves.Length; i++)
+        {
             CandyWave wave = candyWaves[i];
-            if (wave.candyPrefab == null) continue;
+            if (wave == null || wave.candyPrefab == null) continue;
 
             GameObject item = Instantiate(previewItemPrefab, previewPanel);
             item.transform.SetAsFirstSibling();
             spawnedItems.Add(item);
 
             Transform iconTransform = item.transform.Find("Icon");
-            if (iconTransform != null){
+            if (iconTransform != null)
+            {
                 Image iconImage = iconTransform.GetComponent<Image>();
-                if (iconImage != null && wave.candyIcon != null){
-                    iconImage.sprite = wave.candyIcon; 
+                if (iconImage != null && wave.candyIcon != null)
+                {
+                    iconImage.sprite = wave.candyIcon;
                 }
             }
 
@@ -172,11 +246,9 @@ public class GameFlowManager : MonoBehaviour
                 spawnedArrows.Add(arrow);
             }
         }
+
         RefreshQueueVisuals(0);
-        
     }
-    
-    
 
     public void TogglePlayPause()
     {
@@ -185,20 +257,20 @@ public class GameFlowManager : MonoBehaviour
         if (isPlaying)
         {
             if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
-            playPauseButtonImage.sprite = playIcon; 
+            if (playPauseButtonImage != null) playPauseButtonImage.sprite = playIcon;
             isPlaying = false;
         }
         else
         {
             spawnCoroutine = StartCoroutine(SpawnCandiesRoutine());
-            playPauseButtonImage.sprite = pauseIcon; 
+            if (playPauseButtonImage != null) playPauseButtonImage.sprite = pauseIcon;
             isPlaying = true;
         }
     }
 
     public void ResetGame()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -206,81 +278,82 @@ public class GameFlowManager : MonoBehaviour
     {
         while (spawnedCount < totalCandies)
         {
-            float randomX = Random.Range(-0.05f, 0.05f);
+            float randomX = Random.Range(-spawnRandomOffset, spawnRandomOffset);
             Vector3 finalSpawnPos = spawnPoint.position + new Vector3(randomX, 0f, 0f);
 
             Instantiate(spawnQueue[spawnedCount], finalSpawnPos, Quaternion.identity);
-            
-            // squash pipe
+
+            // Trigger pipe squash animation
             if (pipeTransform != null)
             {
                 StartCoroutine(AnimatePipeSquash());
             }
 
-            candyWaves[currentWaveIndex].amount--; 
-            UpdatePreviewUI(currentWaveIndex, candyWaves[currentWaveIndex].amount); // renew UI preview panel
-            
-            if (candyWaves[currentWaveIndex].amount <= 0)
+            if (remainingWaveAmounts != null && currentWaveIndex < remainingWaveAmounts.Length)
             {
-                currentWaveIndex++;
-                RefreshQueueVisuals(currentWaveIndex);
+                remainingWaveAmounts[currentWaveIndex]--;
+                UpdatePreviewUI(currentWaveIndex, remainingWaveAmounts[currentWaveIndex]);
+
+                if (remainingWaveAmounts[currentWaveIndex] <= 0)
+                {
+                    currentWaveIndex++;
+                    RefreshQueueVisuals(currentWaveIndex);
+                }
             }
 
-
-            spawnedCount++; 
+            spawnedCount++;
             yield return new WaitForSeconds(spawnInterval);
         }
-        
-        playPauseButtonImage.sprite = playIcon; 
+
+        if (playPauseButtonImage != null) playPauseButtonImage.sprite = playIcon;
         isPlaying = false;
-        spawnCoroutine = null; 
+        spawnCoroutine = null;
     }
 
-    // --- pipe anim ---
     private IEnumerator AnimatePipeSquash()
     {
-        if (pipeTransform == null) yield break; 
+        if (pipeTransform == null) yield break;
 
         Vector3 originalScale = pipeTransform.localScale;
-        
-        Vector3 squashedScale = new Vector3(originalScale.x * pipeSquashScale_x, originalScale.y * pipeSquashScale, originalScale.z);
+        Vector3 squashedScale = new Vector3(
+            originalScale.x * pipeSquashScale_x,
+            originalScale.y * pipeSquashScale,
+            originalScale.z);
 
         float elapsedTime = 0f;
         while (elapsedTime < pipeSquashTime)
         {
-            pipeTransform.localScale = Vector3.Lerp(originalScale, squashedScale, (elapsedTime / pipeSquashTime));
-            elapsedTime += Time.deltaTime;
-            yield return null; 
-        }
-        pipeTransform.localScale = squashedScale; // 確保數值精準到位
-
-        // Recover
-        elapsedTime = 0f;
-        while (elapsedTime < pipeRecoverTime)
-        {
-            pipeTransform.localScale = Vector3.Lerp(squashedScale, originalScale, (elapsedTime / pipeRecoverTime));
+            pipeTransform.localScale = Vector3.Lerp(originalScale, squashedScale, elapsedTime / pipeSquashTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        pipeTransform.localScale = originalScale; // 確保完全恢復原狀
+        pipeTransform.localScale = squashedScale; // Ensure exact target squash scale
+
+        // Recover back to original scale
+        elapsedTime = 0f;
+        while (elapsedTime < pipeRecoverTime)
+        {
+            pipeTransform.localScale = Vector3.Lerp(squashedScale, originalScale, elapsedTime / pipeRecoverTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        pipeTransform.localScale = originalScale; // Ensure exact original scale restoration
     }
 
-    // waveIndex: current wave 
-    // remainingAmount: how many candies left
+    // Updates the preview UI item for the specified wave index and remaining candy count
     public void UpdatePreviewUI(int waveIndex, int remainingAmount)
     {
-        
-        if (waveIndex >= spawnedItems.Count) return; 
+        if (waveIndex >= spawnedItems.Count) return;
 
         GameObject currentUI = spawnedItems[waveIndex];
-        
+
         if (remainingAmount > 0)
         {
-            // there's candy in the box: only change the value
+            // Candies remain in this wave: update the displayed count
             Transform textTransform = currentUI.transform.Find("AmountText");
             if (textTransform != null)
             {
-                textTransform.GetComponent<TMPro.TextMeshProUGUI>().text = "x " + remainingAmount;
+                textTransform.GetComponent<TextMeshProUGUI>().text = "x " + remainingAmount;
             }
         }
         else
@@ -293,18 +366,19 @@ public class GameFlowManager : MonoBehaviour
             }
         }
     }
-    // renew the reansformation
+
+    // Updates the opacity of preview queue items so the active wave is fully opaque
     private void RefreshQueueVisuals(int activeIndex)
     {
         for (int i = 0; i < spawnedItems.Count; i++)
         {
-            if (spawnedItems[i] != null) 
+            if (spawnedItems[i] != null)
             {
                 CanvasGroup cg = spawnedItems[i].GetComponent<CanvasGroup>();
                 if (cg != null)
                 {
-                    // now: very clear；not now: transparent
-                    cg.alpha = (i == activeIndex) ? 1f : 0.4f; 
+                    // Active wave is fully opaque; upcoming waves are semi-transparent
+                    cg.alpha = (i == activeIndex) ? 1f : 0.4f;
                 }
             }
         }

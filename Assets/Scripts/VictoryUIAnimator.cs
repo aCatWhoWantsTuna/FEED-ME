@@ -4,15 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class VictoryUIAnimator : MonoBehaviour
 {
-    [Header("--UI component setting--")]
+    [Header("-- UI Component Setting --")]
     public RectTransform background;
     public RectTransform titleText;
     public RectTransform redMonster;
     public RectTransform blueMonster;
     public GameObject nextButton;
 
-    [Header("-- effect setting --")]
-    public GameObject crushEffectPrefab; 
+    [Header("-- Effect Setting --")]
+    public GameObject crushEffectPrefab;
 
     private Vector2 bgFinalPos;
     private Vector2 titleFinalPos;
@@ -30,7 +30,7 @@ public class VictoryUIAnimator : MonoBehaviour
             blueFinalPos = blueMonster.anchoredPosition;
             hasInitialized = true;
         }
-        
+
         StartCoroutine(PlayVictorySequence());
     }
 
@@ -38,13 +38,15 @@ public class VictoryUIAnimator : MonoBehaviour
     {
         if (nextButton != null) nextButton.SetActive(false);
 
-        background.anchoredPosition = new Vector2(bgFinalPos.x, bgFinalPos.y + 1200f); 
-        titleText.anchoredPosition = new Vector2(titleFinalPos.x - 2000f, titleFinalPos.y); 
-        redMonster.anchoredPosition = redFinalPos; 
-        redMonster.localScale = Vector3.zero; 
-        blueMonster.anchoredPosition = blueFinalPos; 
-        blueMonster.localScale = Vector3.zero; 
-        if (AudioManager.instance != null){
+        background.anchoredPosition = new Vector2(bgFinalPos.x, bgFinalPos.y + 1200f);
+        titleText.anchoredPosition = new Vector2(titleFinalPos.x - 2000f, titleFinalPos.y);
+        redMonster.anchoredPosition = redFinalPos;
+        redMonster.localScale = Vector3.zero;
+        blueMonster.anchoredPosition = blueFinalPos;
+        blueMonster.localScale = Vector3.zero;
+
+        if (AudioManager.instance != null)
+        {
             AudioManager.instance.PlaySFX("victory");
         }
 
@@ -54,23 +56,22 @@ public class VictoryUIAnimator : MonoBehaviour
 
         if (crushEffectPrefab != null)
         {
-            
             GameObject effect = Instantiate(crushEffectPrefab, titleText.transform);
-            
+
             RectTransform effectRect = effect.GetComponent<RectTransform>();
-            if(effectRect != null)
+            if (effectRect != null)
             {
                 effectRect.anchoredPosition = Vector2.zero;
-                effectRect.localScale = Vector3.one; 
+                effectRect.localScale = Vector3.one;
                 effectRect.localPosition = new Vector3(effectRect.localPosition.x, effectRect.localPosition.y, 0f);
             }
-            
+
             yield return new WaitForSecondsRealtime(0.1f);
         }
 
         yield return StartCoroutine(Anim_MonstersPop());
-        string currentScene = SceneManager.GetActiveScene().name;
-        if (currentScene == "Level_3")
+
+        if (LevelController.IsFinalLevel())
         {
             DrawManager drawManager = FindAnyObjectByType<DrawManager>();
             if (drawManager != null)
@@ -79,14 +80,14 @@ public class VictoryUIAnimator : MonoBehaviour
             }
 
             Time.timeScale = 0f;
-
-        }else{
+        }
+        else
+        {
             if (nextButton != null)
             {
                 yield return StartCoroutine(Anim_NextButtonAppear());
             }
         }
-        
     }
 
     private IEnumerator Anim_BackgroundBounce()
@@ -108,7 +109,7 @@ public class VictoryUIAnimator : MonoBehaviour
         {
             time += Time.unscaledDeltaTime;
             float t = time / duration;
-            float easeOut = 1f - Mathf.Pow(1f - t, 3f); 
+            float easeOut = 1f - Mathf.Pow(1f - t, 3f);
             titleText.anchoredPosition = Vector2.Lerp(startPos, titleFinalPos, easeOut);
             yield return null;
         }
@@ -166,44 +167,43 @@ public class VictoryUIAnimator : MonoBehaviour
         {
             time += Time.unscaledDeltaTime;
             float t = time / duration;
-            float ease = isEaseOut ? (1f - Mathf.Pow(1f - t, 2f)) : (t * t); 
+            float ease = isEaseOut ? (1f - Mathf.Pow(1f - t, 2f)) : (t * t);
             target.anchoredPosition = Vector2.Lerp(from, to, ease);
             yield return null;
         }
         target.anchoredPosition = to;
     }
 
-
     public IEnumerator PlayExitSequence(System.Action onFinished)
     {
         float time = 0f;
         float duration = 0.9f;
-        
-        Vector2 startPos = background.anchoredPosition;
-        Vector2 targetPos = startPos + new Vector2(0, 1500f); // flies up
 
-        // SetParent (..., true) means they are not parent/child anymore, but fix the relative pos.
+        Vector2 startPos = background.anchoredPosition;
+        Vector2 targetPos = startPos + new Vector2(0, 1500f); // Fly upward
+
+        // Reparent monsters while preserving their world/screen positions so only the background flies up
         if (redMonster != null) redMonster.SetParent(background.parent, true);
         if (blueMonster != null) blueMonster.SetParent(background.parent, true);
 
         Vector3 redStartScale = redMonster != null ? redMonster.localScale : Vector3.one;
         Vector3 blueStartScale = blueMonster != null ? blueMonster.localScale : Vector3.one;
-        
+
         while (time < duration)
         {
             time += Time.unscaledDeltaTime;
             float t = time / duration;
-            
-            float easeIn = t * t; 
 
-            // Only Background Moves up.
+            float easeIn = t * t;
+
+            // Only the background moves upward while monsters shrink to zero
             background.anchoredPosition = Vector2.Lerp(startPos, targetPos, easeIn);
-            
+
             if (redMonster != null)
             {
                 redMonster.localScale = Vector3.Lerp(redStartScale, Vector3.zero, easeIn);
             }
-            
+
             if (blueMonster != null)
             {
                 blueMonster.localScale = Vector3.Lerp(blueStartScale, Vector3.zero, easeIn);

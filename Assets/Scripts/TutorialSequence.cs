@@ -2,29 +2,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class TutorialSequence : MonoBehaviour
-{   
-    [Header("--Cover Lock--")]
+{
+    [Header("-- Cover Lock --")]
     public GameObject coverPanel;
 
-    [Header("--pic: step 1~6 --")]
-    public GameObject[] tutorialSteps; 
-    
-    [Header("--press space, always live--")]
-    public GameObject pressSpacePrompt; 
+    [Header("-- Step 1~6 Visuals --")]
+    public GameObject[] tutorialSteps;
 
-    [Header("--Press Space posision--")]
-    public Vector2[] spacePromptPositions; 
-    
-    [Header("--start button--")]
-    public GameObject startButton; 
-    
-    [Header("--anim setting--")]
+    [Header("-- Press Space Prompt --")]
+    public GameObject pressSpacePrompt;
+
+    [Header("-- Press Space Positions --")]
+    public Vector2[] spacePromptPositions;
+
+    [Header("-- Start Button --")]
+    public GameObject startButton;
+
+    [Header("-- Animation Settings --")]
     public float popDuration = 0.2f;
     public float popOvershoot = 1.15f;
-
 
     private int currentStep = 0;
     private bool isTutorialFinished = false;
@@ -38,10 +37,11 @@ public class TutorialSequence : MonoBehaviour
         currentStep = savedStep;
         isTutorialFinished = savedFinished;
 
-        if (isTutorialFinished) // for the memory of tutorial (solving reset problem)
+        // Preserve tutorial completion state across scene resets
+        if (isTutorialFinished)
         {
             if (pressSpacePrompt != null) pressSpacePrompt.SetActive(false);
-            
+
             if (startButton != null)
             {
                 startButton.SetActive(true);
@@ -52,10 +52,10 @@ public class TutorialSequence : MonoBehaviour
             {
                 tutorialSteps[i].SetActive(false);
             }
-            
-            return; 
+
+            return;
         }
-        
+
         if (pressSpacePrompt != null) pressSpacePrompt.SetActive(true);
         if (startButton != null) startButton.SetActive(false);
 
@@ -73,11 +73,12 @@ public class TutorialSequence : MonoBehaviour
             }
         }
     }
+
     void Update()
     {
         if (coverPanel != null && coverPanel.activeInHierarchy)
         {
-            return; 
+            return;
         }
 
         if (!isTutorialFinished && Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -110,14 +111,14 @@ public class TutorialSequence : MonoBehaviour
         else
         {
             isTutorialFinished = true;
-            savedFinished = true; // save: all finished
-            
+            savedFinished = true; // Mark all tutorial steps as completed
+
             if (pressSpacePrompt != null) pressSpacePrompt.SetActive(false);
-            
-            if (startButton != null) 
+
+            if (startButton != null)
             {
                 startButton.SetActive(true);
-                PlayPopAnimation(startButton); 
+                PlayPopAnimation(startButton);
             }
         }
     }
@@ -129,17 +130,18 @@ public class TutorialSequence : MonoBehaviour
             Vector2 targetPos = spacePromptPositions[currentStep];
             pressSpacePrompt.transform.localPosition = new Vector3(targetPos.x, targetPos.y, pressSpacePrompt.transform.localPosition.z);
         }
-    }    
+    }
 
     public void OnStartButtonClicked()
     {
         if (AudioManager.instance != null)
-            {
-                AudioManager.instance.PlaySFX("click");
-            }
-        SceneManager.LoadScene("Level_1");
-        gameObject.SetActive(false); 
-        
+        {
+            AudioManager.instance.PlaySFX("click");
+        }
+
+        // Load Level_1 (index 0) via LevelController so it initializes from LevelData
+        LevelController.LoadLevelByIndex(0);
+        gameObject.SetActive(false);
     }
 
     private void PlayPopAnimation(GameObject target)
@@ -160,8 +162,7 @@ public class TutorialSequence : MonoBehaviour
 
         while (time < halfDuration)
         {
-            //normal deltaTime
-            time += Time.deltaTime; 
+            time += Time.deltaTime;
             targetTransform.localScale = Vector3.Lerp(Vector3.zero, overshootScale, time / halfDuration);
             yield return null;
         }
