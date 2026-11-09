@@ -1,0 +1,1118 @@
+fileFormatVersion: 2
+guid: 8a553e16df545fa4ea0ffd31cb5c1bc1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1422028030005155001
+    second: text_greed_0
+  - first:
+      213: -9197079344172601210
+    second: text_greed_1
+  - first:
+      213: 4115688674346093321
+    second: text_greed_2
+  - first:
+      213: -8854066170019307032
+    second: text_greed_3
+  - first:
+      213: 9144829524501411985
+    second: text_greed_4
+  - first:
+      213: 9159174520001113550
+    second: text_greed_5
+  - first:
+      213: 7907300680757304394
+    second: text_greed_6
+  - first:
+      213: -7605289679066259807
+    second: text_greed_7
+  - first:
+      213: 27096228873906691
+    second: text_greed_8
+  - first:
+      213: -8503771826140834556
+    second: text_greed_9
+  - first:
+      213: 8626158262261797274
+    second: text_greed_10
+  - first:
+      213: 734782053115047745
+    second: text_greed_11
+  - first:
+      213: -5195953923868012972
+    second: text_greed_12
+  - first:
+      213: -8818327370128149322
+    second: text_greed_13
+  - first:
+      213: -1837910312576981880
+    second: text_greed_14
+  - first:
+      213: 4020805801810363413
+    second: text_greed_15
+  - first:
+      213: -227755776420305885
+    second: text_greed_16
+  - first:
+      213: -8185013846064735949
+    second: text_greed_17
+  - first:
+      213: 5580015185763465128
+    second: text_greed_18
+  - first:
+      213: -965883521369920231
+    second: text_greed_19
+  - first:
+      213: -3778340805058631675
+    second: text_greed_20
+  - first:
+      213: 1387674827783338234
+    second: text_greed_21
+  - first:
+      213: -664606858286725082
+    second: text_greed_22
+  - first:
+      213: -2577968273833143791
+    second: text_greed_23
+  - first:
+      213: 6863680247966967373
+    second: text_greed_24
+  - first:
+      213: -4222371342958968826
+    second: text_greed_25
+  - first:
+      213: -1746054670040410889
+    second: text_greed_26
+  - first:
+      213: 3458907014712331556
+    second: text_greed_27
+  - first:
+      213: 415192089668029537
+    second: text_greed_28
+  - first:
+      213: -8656421564532336891
+    second: text_greed_29
+  - first:
+      213: 2146177373000871679
+    second: text_greed_30
+  - first:
+      213: 578771690037032683
+    second: text_greed_31
+  - first:
+      213: -781839006433776945
+    second: text_greed_32
+  - first:
+      213: -4999599219807733905
+    second: text_greed_33
+  - first:
+      213: -5785128058995440417
+    second: text_greed_34
+  - first:
+      213: -1951912472515485679
+    second: text_greed_35
+  - first:
+      213: 4813050845917897364
+    second: text_greed_36
+  - first:
+      213: 2671880268493805029
+    second: text_greed_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: text_greed_0
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 267
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b41b1585fe0cb310800000000000000
+      internalID: 1422028030005155001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_1
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 268
+        width: 57
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680728f80196d5080800000000000000
+      internalID: -9197079344172601210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_2
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 269
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90b4f702b0ddd1930800000000000000
+      internalID: 4115688674346093321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_3
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 269
+        width: 22
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e1223eaab9002580800000000000000
+      internalID: -8854066170019307032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_4
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 269
+        width: 46
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 198396b4006f8ee70800000000000000
+      internalID: 9144829524501411985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_5
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 270
+        width: 36
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecda974d2bceb1f70800000000000000
+      internalID: 9159174520001113550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_6
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 271
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4c5eb013106cbd60800000000000000
+      internalID: 7907300680757304394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_7
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 268
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ae9f49d455947690800000000000000
+      internalID: -7605289679066259807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_8
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 266
+        width: 50
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a28c860e3406000800000000000000
+      internalID: 27096228873906691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_9
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 250
+        width: 25
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40596eb34988cf980800000000000000
+      internalID: -8503771826140834556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_10
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 245
+        width: 102
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a915a667c3546b770800000000000000
+      internalID: 8626158262261797274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_11
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 267
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14f214f5268723a00800000000000000
+      internalID: 734782053115047745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_12
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 184
+        width: 39
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ecc828f6344e7b0800000000000000
+      internalID: -5195953923868012972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_13
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 187
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b438667af10f9580800000000000000
+      internalID: -8818327370128149322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_14
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 203
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88462d1fe4e6e76e0800000000000000
+      internalID: -1837910312576981880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_15
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 183
+        width: 11
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5148cb7d295ccc730800000000000000
+      internalID: 4020805801810363413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_16
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 180
+        width: 16
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 324aceaf359d6dcf0800000000000000
+      internalID: -227755776420305885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_17
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 180
+        width: 51
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33958a7e54df86e80800000000000000
+      internalID: -8185013846064735949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_18
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 185
+        width: 33
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a777bc4f32307d40800000000000000
+      internalID: 5580015185763465128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_19
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 178
+        width: 47
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91da7560e0e7892f0800000000000000
+      internalID: -965883521369920231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_20
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 176
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 508ed1a6e03a09bc0800000000000000
+      internalID: -3778340805058631675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_21
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 179
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af8f6c557e2024310800000000000000
+      internalID: 1387674827783338234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_22
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 199
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62808886597d6c6f0800000000000000
+      internalID: -664606858286725082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_23
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 174
+        width: 41
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 112d2fb7387393cd0800000000000000
+      internalID: -2577968273833143791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_24
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 173
+        width: 49
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d46afe7f1d0b04f50800000000000000
+      internalID: 6863680247966967373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_25
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 180
+        width: 7
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 600442972af1765c0800000000000000
+      internalID: -4222371342958968826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_26
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 104
+        width: 40
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f454d15784c4c7e0800000000000000
+      internalID: -1746054670040410889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_27
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 105
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d09039a91800030800000000000000
+      internalID: 3458907014712331556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_28
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 108
+        width: 47
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c073a710f03c500800000000000000
+      internalID: 415192089668029537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_29
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 108
+        width: 82
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 507d40463763ed780800000000000000
+      internalID: -8656421564532336891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_30
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 102
+        width: 44
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffea2b623f0c8cd10800000000000000
+      internalID: 2146177373000871679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_31
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 104
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be6b5be19c5380800800000000000000
+      internalID: 578771690037032683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_32
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 104
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fca68f5e0995625f0800000000000000
+      internalID: -781839006433776945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_33
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 97
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f673a04affadd9ab0800000000000000
+      internalID: -4999599219807733905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_34
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 99
+        width: 31
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd48e676ea817bfa0800000000000000
+      internalID: -5785128058995440417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_35
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 101
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1106f0ba2f969e4e0800000000000000
+      internalID: -1951912472515485679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_36
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 104
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49264d46e346bc240800000000000000
+      internalID: 4813050845917897364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: text_greed_37
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 107
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e5d2fda2fc641520800000000000000
+      internalID: 2671880268493805029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      text_greed_0: 1422028030005155001
+      text_greed_1: -9197079344172601210
+      text_greed_10: 8626158262261797274
+      text_greed_11: 734782053115047745
+      text_greed_12: -5195953923868012972
+      text_greed_13: -8818327370128149322
+      text_greed_14: -1837910312576981880
+      text_greed_15: 4020805801810363413
+      text_greed_16: -227755776420305885
+      text_greed_17: -8185013846064735949
+      text_greed_18: 5580015185763465128
+      text_greed_19: -965883521369920231
+      text_greed_2: 4115688674346093321
+      text_greed_20: -3778340805058631675
+      text_greed_21: 1387674827783338234
+      text_greed_22: -664606858286725082
+      text_greed_23: -2577968273833143791
+      text_greed_24: 6863680247966967373
+      text_greed_25: -4222371342958968826
+      text_greed_26: -1746054670040410889
+      text_greed_27: 3458907014712331556
+      text_greed_28: 415192089668029537
+      text_greed_29: -8656421564532336891
+      text_greed_3: -8854066170019307032
+      text_greed_30: 2146177373000871679
+      text_greed_31: 578771690037032683
+      text_greed_32: -781839006433776945
+      text_greed_33: -4999599219807733905
+      text_greed_34: -5785128058995440417
+      text_greed_35: -1951912472515485679
+      text_greed_36: 4813050845917897364
+      text_greed_37: 2671880268493805029
+      text_greed_4: 9144829524501411985
+      text_greed_5: 9159174520001113550
+      text_greed_6: 7907300680757304394
+      text_greed_7: -7605289679066259807
+      text_greed_8: 27096228873906691
+      text_greed_9: -8503771826140834556
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
