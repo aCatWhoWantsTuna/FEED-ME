@@ -56,6 +56,10 @@ public class LevelDatabase : ScriptableObject
     [Tooltip("Speech bubble sprite when placed on the LEFT side of a monster (tail points right: pic_eat_text_right).")]
     public Sprite bubbleLeftOfMonsterSprite;
 
+    [Header("-- Shared UI Prefabs --")]
+    [Tooltip("Optional custom PauseMenuPanel prefab to instantiate if a scene does not already have one under Canvas.")]
+    public GameObject pauseMenuPrefab;
+
     /// <summary>
     /// Returns the LevelData at the specified index, or null if out of bounds.
     /// </summary>

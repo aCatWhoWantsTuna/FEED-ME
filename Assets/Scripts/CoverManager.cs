@@ -89,7 +89,15 @@ public class CoverUIManager : MonoBehaviour
             BindButtonEvents();
         }
 
-        ShowMainMenuPanel();
+        if (LevelController.OpenLevelSelectOnLoad)
+        {
+            LevelController.OpenLevelSelectOnLoad = false;
+            ShowLevelSelectPanel();
+        }
+        else
+        {
+            ShowMainMenuPanel();
+        }
     }
 
     void Update()

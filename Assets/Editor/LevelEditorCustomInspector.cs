@@ -122,6 +122,44 @@ public class LevelEditorManagerInspector : Editor
 }
 
 /// <summary>
+/// Custom Inspector for PauseMenuManager allowing one-click generation of PauseMenuPanel in Edit Mode or Play Mode.
+/// </summary>
+[CustomEditor(typeof(PauseMenuManager))]
+public class PauseMenuManagerInspector : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        PauseMenuManager manager = (PauseMenuManager)target;
+
+        EditorGUILayout.Space(8);
+        GUI.backgroundColor = new Color(0.6f, 0.95f, 0.6f);
+        if (GUILayout.Button("Generate PauseMenuPanel in Canvas", GUILayout.Height(30)))
+        {
+            Undo.RecordObject(manager, "Generate PauseMenuPanel");
+            if (manager.windowBoardSprite == null)
+            {
+                manager.windowBoardSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_board_d.png");
+            }
+            if (manager.buttonFrameSprite == null)
+            {
+                manager.buttonFrameSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_preview_frame.png");
+            }
+            GameObject created = manager.GeneratePauseMenuPanel();
+            if (created != null)
+            {
+                Undo.RegisterCreatedObjectUndo(created, "Create PauseMenuPanel");
+                Selection.activeGameObject = created;
+                EditorUtility.SetDirty(manager);
+                EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+            }
+        }
+        GUI.backgroundColor = Color.white;
+    }
+}
+
+/// <summary>
 /// Custom Inspector for Monster providing quick preset buttons for speech bubble placement.
 /// </summary>
 [CustomEditor(typeof(Monster))]
@@ -162,7 +200,7 @@ public class MonsterInspector : Editor
 public static class LevelEditorMenuTools
 {
     [MenuItem("Tools/Level Editor/Setup Level_0 as Main Menu (Build UI)")]
-    public static void SetupLevel0MainMenu()
+    public static void SetupMainMenu()
     {
         string scenePath = "Assets/Scenes/Level_0.unity";
         if (SceneManager.GetActiveScene().path != scenePath)

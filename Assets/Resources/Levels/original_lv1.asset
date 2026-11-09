@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1111111111111111111111111111103, type: 3}
-  m_Name: Level_2
+  m_Name: original_lv1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: Level_2
+  levelName: original_lv1
   maxPens: 2
   spawnPointPosition: {x: 0, y: 4.68, z: 0}
   pipePosition: {x: 0, y: 6.94, z: 0}
@@ -26,34 +26,25 @@ MonoBehaviour:
     amount: 3
     candyIcon: {fileID: 21300000, guid: dbb8b4d98ca93034da122a2bd7c06ab9, type: 3}
   - candyPrefab: {fileID: 866460342496990989, guid: 57ed0d9f3ec6e9047a6449074b466c6f, type: 3}
-    amount: 1
+    amount: 2
     candyIcon: {fileID: 21300000, guid: 6dcdad2bb2895594199e13b6b64c725c, type: 3}
   monsters:
   - monsterType: 0
     targetColorTag: RedCandy
-    targetAmount: 2
-    groupPosition: {x: 0.5, y: -4.75, z: 0}
-    monsterWorldPosition: {x: -3.77756, y: -4.42634, z: 0}
-    speechBubbleDirection: 1
-    speechBubbleOffsetFromMonster: {x: -2.03244, y: 1.21634, z: 0}
-    numberTextAnchoredPosition: {x: -1.2, y: -2.39}
-    candyIconLocalPosition: {x: 0.7, y: -1.61, z: 0}
-  - monsterType: 0
-    targetColorTag: RedCandy
-    targetAmount: 1
-    groupPosition: {x: 6.16, y: 0.52, z: 0}
-    monsterWorldPosition: {x: 1.88244, y: 0.84366, z: 0}
+    targetAmount: 4
+    groupPosition: {x: 5.97, y: -4.69, z: 0}
+    monsterWorldPosition: {x: 1.6924396, y: -4.36634, z: 0}
     speechBubbleDirection: 0
-    speechBubbleOffsetFromMonster: {x: 2.08, y: 0.74, z: 0}
+    speechBubbleOffsetFromMonster: {x: 2.08, y: 0.74000025, z: 0}
     numberTextAnchoredPosition: {x: -1.2, y: -1.67}
     candyIconLocalPosition: {x: 0.7, y: -0.8, z: 0}
   - monsterType: 1
     targetColorTag: BlueCandy
     targetAmount: 3
-    groupPosition: {x: -4.1, y: -1.6, z: 0}
-    monsterWorldPosition: {x: -1.64756, y: -4.41634, z: 0}
+    groupPosition: {x: -4.86, y: 2.69, z: 0}
+    monsterWorldPosition: {x: -2.40756, y: -0.12633991, z: 0}
     speechBubbleDirection: 1
-    speechBubbleOffsetFromMonster: {x: -2.06, y: 1.18, z: 0}
-    numberTextAnchoredPosition: {x: -1.7, y: -1.8}
-    candyIconLocalPosition: {x: 0.13, y: -1.1, z: 0}
+    speechBubbleOffsetFromMonster: {x: -2.0600002, y: 1.1800001, z: 0}
+    numberTextAnchoredPosition: {x: -1.7, y: -2.1}
+    candyIconLocalPosition: {x: -0.0000009536743, y: -1.1, z: 0}
   obstacles: []

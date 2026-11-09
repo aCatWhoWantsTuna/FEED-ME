@@ -10,6 +10,7 @@ public class VictoryUIAnimator : MonoBehaviour
     public RectTransform redMonster;
     public RectTransform blueMonster;
     public GameObject nextButton;
+    public GameObject levelSelectButton;
 
     [Header("-- Effect Setting --")]
     public GameObject crushEffectPrefab;
@@ -37,6 +38,18 @@ public class VictoryUIAnimator : MonoBehaviour
     private IEnumerator PlayVictorySequence()
     {
         if (nextButton != null) nextButton.SetActive(false);
+        if (levelSelectButton != null) levelSelectButton.SetActive(false);
+
+        DrawManager drawManager = FindAnyObjectByType<DrawManager>();
+        if (drawManager != null)
+        {
+            if (drawManager.customPenCursor != null)
+            {
+                drawManager.customPenCursor.SetActive(false);
+            }
+            drawManager.enabled = false;
+        }
+        Cursor.visible = true;
 
         background.anchoredPosition = new Vector2(bgFinalPos.x, bgFinalPos.y + 1200f);
         titleText.anchoredPosition = new Vector2(titleFinalPos.x - 2000f, titleFinalPos.y);
@@ -71,18 +84,12 @@ public class VictoryUIAnimator : MonoBehaviour
 
         yield return StartCoroutine(Anim_MonstersPop());
 
-        if (LevelController.IsFinalLevel())
-        {
-            DrawManager drawManager = FindAnyObjectByType<DrawManager>();
-            if (drawManager != null)
-            {
-                drawManager.enabled = false;
-            }
-        }
+        bool showNext = !LevelController.IsFinalLevel() && nextButton != null;
+        bool showLevelSelect = levelSelectButton != null;
 
-        if (nextButton != null)
+        if (showNext || showLevelSelect)
         {
-            yield return StartCoroutine(Anim_NextButtonAppear());
+            yield return StartCoroutine(Anim_ButtonsAppear(showNext, showLevelSelect));
         }
     }
 
@@ -139,21 +146,43 @@ public class VictoryUIAnimator : MonoBehaviour
         blueMonster.localScale = Vector3.one;
     }
 
-    private IEnumerator Anim_NextButtonAppear()
+    private IEnumerator Anim_ButtonsAppear(bool showNext, bool showLevelSelect)
     {
-        if (nextButton == null) yield break;
-        nextButton.transform.localScale = Vector3.zero;
-        nextButton.SetActive(true);
+        if (showNext && nextButton != null)
+        {
+            nextButton.transform.localScale = Vector3.zero;
+            nextButton.SetActive(true);
+        }
+
+        if (showLevelSelect && levelSelectButton != null)
+        {
+            levelSelectButton.transform.localScale = Vector3.zero;
+            levelSelectButton.SetActive(true);
+        }
+
         float time = 0f;
         float duration = 0.3f;
+        float finalScale = 0.8f;
         while (time < duration)
         {
             time += Time.unscaledDeltaTime;
-            float scale = Mathf.Lerp(0f, 1f, time / duration);
-            nextButton.transform.localScale = new Vector3(scale, scale, 1f);
+            float scale = Mathf.Lerp(0f, finalScale, time / duration);
+            Vector3 targetScale = new Vector3(scale, scale, 1f);
+
+            if (showNext && nextButton != null)
+            {
+                nextButton.transform.localScale = targetScale;
+            }
+            if (showLevelSelect && levelSelectButton != null)
+            {
+                levelSelectButton.transform.localScale = targetScale;
+            }
             yield return null;
         }
-        nextButton.transform.localScale = Vector3.one;
+
+        Vector3 ScaleVector = new Vector3(finalScale, finalScale, 1f);
+        if (showNext && nextButton != null) nextButton.transform.localScale = ScaleVector;
+        if (showLevelSelect && levelSelectButton != null) levelSelectButton.transform.localScale = ScaleVector;
     }
 
     private IEnumerator MoveRect(RectTransform target, Vector2 from, Vector2 to, float duration, bool isEaseOut)

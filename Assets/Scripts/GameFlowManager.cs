@@ -68,6 +68,12 @@ public class GameFlowManager : MonoBehaviour
     /// </summary>
     private void InitializeLevelIfNeeded()
     {
+        // Ensure PauseMenuManager exists in gameplay scenes
+        if (GetComponent<PauseMenuManager>() == null && FindAnyObjectByType<PauseMenuManager>() == null)
+        {
+            gameObject.AddComponent<PauseMenuManager>();
+        }
+
         LevelEditorManager editorManager = GetComponent<LevelEditorManager>();
         if (editorManager == null)
         {

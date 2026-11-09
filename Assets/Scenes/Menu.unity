@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoverUIManager
   coverUIRoot: {fileID: 1289351867}
-  titleRect: {fileID: 1301537016}
+  titleRect: {fileID: 0}
   floatSpeed: 2
   floatHeight: 15
   mainMenuPanel: {fileID: 0}
