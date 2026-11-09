@@ -182,6 +182,18 @@ public class GameFlowManager : MonoBehaviour
 
         Debug.Log("All candies eaten! Victory!");
 
+        // Award level candy reward to player currency
+        LevelData completedLevel = LevelController.GetCurrentLevelData();
+        if (completedLevel == null && LevelDatabase.Instance != null)
+        {
+            int idx = LevelDatabase.Instance.GetLevelIndexByName(SceneManager.GetActiveScene().name);
+            completedLevel = LevelDatabase.Instance.GetLevelByIndex(idx);
+        }
+        if (completedLevel != null)
+        {
+            PlayerProgressManager.RecordLevelCompleted(completedLevel);
+        }
+
         if (victoryPanel != null && !victoryPanel.activeSelf)
         {
             victoryPanel.SetActive(true);

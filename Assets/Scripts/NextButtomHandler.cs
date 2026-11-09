@@ -30,8 +30,12 @@ public class NextButtonHandler : MonoBehaviour
             uiCanvas.sortingOrder = 999; // Render on top layer
         }
 
-        // Advance using LevelController if levels are registered in LevelDatabase
-        if (LevelDatabase.Instance != null && LevelDatabase.Instance.levels.Count > 0)
+        // Advance using LevelController if levels are registered in LevelDatabase; return to Level_0 after the final level
+        if (LevelController.IsFinalLevel())
+        {
+            SceneManager.LoadScene("Level_0");
+        }
+        else if (LevelDatabase.Instance != null && LevelDatabase.Instance.levels.Count > 0)
         {
             if (LevelController.HasActiveLevelRequest)
             {

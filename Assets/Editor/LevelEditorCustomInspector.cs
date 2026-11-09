@@ -6,6 +6,59 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
+/// Custom Inspector for CoverUIManager providing one-click UI hierarchy generation and panel preview buttons.
+/// </summary>
+[CustomEditor(typeof(CoverUIManager))]
+public class CoverUIManagerInspector : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        CoverUIManager manager = (CoverUIManager)target;
+
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("Main Menu UI Builder & Preview", EditorStyles.boldLabel);
+
+        GUI.backgroundColor = new Color(0.6f, 0.95f, 0.6f);
+        if (GUILayout.Button("Build / Rebuild Main Menu UI in Scene", GUILayout.Height(32)))
+        {
+            LevelEditorMenuTools.BuildMainMenuUIOnManager(manager);
+        }
+
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.Space(4);
+        EditorGUILayout.LabelField("Switch Active Panel in Scene View:", EditorStyles.miniBoldLabel);
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("1. Main Title", GUILayout.Height(26)))
+        {
+            manager.ShowMainMenuPanel();
+            EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+        }
+        if (GUILayout.Button("2. Level Select", GUILayout.Height(26)))
+        {
+            manager.ShowLevelSelectPanel();
+            EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+        }
+        if (GUILayout.Button("3. Dress-Up", GUILayout.Height(26)))
+        {
+            manager.ShowDressUpPanel();
+            EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+        }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space(6);
+        GUI.backgroundColor = new Color(1f, 0.8f, 0.75f);
+        if (GUILayout.Button("Reset Saved Player Currency & Level Progress", GUILayout.Height(24)))
+        {
+            PlayerProgressManager.ResetAllProgress();
+        }
+        GUI.backgroundColor = Color.white;
+    }
+}
+
+/// <summary>
 /// Custom Inspector for LevelEditorManager providing one-click level export, load, and monster spawning tools.
 /// </summary>
 [CustomEditor(typeof(LevelEditorManager))]
@@ -104,10 +157,71 @@ public class MonsterInspector : Editor
 }
 
 /// <summary>
-/// Editor menu utilities for batch-exporting existing scenes to LevelData assets.
+/// Editor menu utilities for setting up the Main Menu in Level_0 and batch-exporting existing scenes.
 /// </summary>
 public static class LevelEditorMenuTools
 {
+    [MenuItem("Tools/Level Editor/Setup Level_0 as Main Menu (Build UI)")]
+    public static void SetupLevel0MainMenu()
+    {
+        string scenePath = "Assets/Scenes/Level_0.unity";
+        if (SceneManager.GetActiveScene().path != scenePath)
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                return;
+            }
+            EditorSceneManager.OpenScene(scenePath);
+        }
+
+        CoverUIManager manager = Object.FindAnyObjectByType<CoverUIManager>();
+        if (manager == null)
+        {
+            Debug.LogError("[LevelEditorMenuTools] CoverUIManager not found in Level_0!");
+            return;
+        }
+
+        BuildMainMenuUIOnManager(manager);
+    }
+
+    public static void BuildMainMenuUIOnManager(CoverUIManager manager)
+    {
+        if (manager == null) return;
+
+        Undo.RecordObject(manager, "Build Main Menu UI");
+
+        Sprite frameSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_preview_frame.png");
+        Sprite boardSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_board_d.png");
+        Sprite startBtnSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/Cover/pic_cover_start.png");
+        Sprite monsterCoverSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/Cover/pic_cover_monster.png");
+        Sprite arrowSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_arrow.png");
+        Sprite resetSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_reset.png");
+        Sprite rewardIconSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_candy_pink.png");
+
+        if (manager.coverUIRoot != null)
+        {
+            manager.coverUIRoot.SetActive(true);
+        }
+
+        manager.DisableGameplayObjectsInMainMenuScene();
+        manager.BuildOrBindMainMenuUI(
+            frameSprite,
+            boardSprite,
+            startBtnSprite,
+            monsterCoverSprite,
+            arrowSprite,
+            resetSprite,
+            rewardIconSprite);
+
+        EditorUtility.SetDirty(manager);
+        if (manager.coverUIRoot != null)
+        {
+            EditorUtility.SetDirty(manager.coverUIRoot);
+        }
+        EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+        Debug.Log("[LevelEditorMenuTools] Main Menu UI (MainMenuPanel, LevelSelectPanel, DressUpPanel) built in Level_0!");
+    }
+
     [MenuItem("Tools/Level Editor/Open LevelEditor Scene")]
     public static void OpenLevelEditorScene()
     {

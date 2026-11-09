@@ -78,15 +78,11 @@ public class VictoryUIAnimator : MonoBehaviour
             {
                 drawManager.enabled = false;
             }
-
-            Time.timeScale = 0f;
         }
-        else
+
+        if (nextButton != null)
         {
-            if (nextButton != null)
-            {
-                yield return StartCoroutine(Anim_NextButtonAppear());
-            }
+            yield return StartCoroutine(Anim_NextButtonAppear());
         }
     }
 
