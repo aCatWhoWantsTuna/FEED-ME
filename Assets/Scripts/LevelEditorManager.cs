@@ -142,21 +142,63 @@ public class LevelEditorManager : MonoBehaviour
             data.monsters.Add(monster.ToSpawnData(Database));
         }
 
-        // 4. Export all extra obstacles in the scene
-        LevelObstacle[] obstaclesInScene = FindObjectsByType<LevelObstacle>(FindObjectsInactive.Exclude);
+        // 4. Export all extra obstacles and tutorial visual props in the scene
         data.obstacles.Clear();
+        HashSet<GameObject> exportedObjects = new HashSet<GameObject>();
+
+        LevelObstacle[] obstaclesInScene = FindObjectsByType<LevelObstacle>(FindObjectsInactive.Exclude);
         foreach (LevelObstacle obs in obstaclesInScene)
         {
             if (obs == null) continue;
-            data.obstacles.Add(new ObstacleSpawnData
-            {
-                obstaclePrefab = obs.sourcePrefab,
-                obstacleId = obs.obstacleId,
-                position = obs.transform.position,
-                eulerAngles = obs.transform.eulerAngles,
-                scale = obs.transform.localScale
-            });
+            exportedObjects.Add(obs.gameObject);
+            data.obstacles.Add(CreateObstacleSpawnDataFromObject(obs.gameObject, obs.sourcePrefab, obs.obstacleId));
         }
+
+        // Also capture legacy root "Obstacle" and "Tutorial" child SpriteRenderers from prototype scenes
+        string[] legacyContainerNames = { "Obstacle", "Tutorial" };
+        foreach (string containerName in legacyContainerNames)
+        {
+            GameObject container = GameObject.Find(containerName);
+            if (container == null || !container.activeInHierarchy) continue;
+
+            SpriteRenderer[] childSprites = container.GetComponentsInChildren<SpriteRenderer>(false);
+            foreach (SpriteRenderer sr in childSprites)
+            {
+                if (sr == null || exportedObjects.Contains(sr.gameObject)) continue;
+                exportedObjects.Add(sr.gameObject);
+                data.obstacles.Add(CreateObstacleSpawnDataFromObject(sr.gameObject, null, sr.gameObject.name));
+            }
+        }
+    }
+
+    private ObstacleSpawnData CreateObstacleSpawnDataFromObject(GameObject obj, GameObject sourcePrefab, string obstacleId)
+    {
+        ObstacleSpawnData spawnData = new ObstacleSpawnData
+        {
+            objectName = obj.name,
+            obstaclePrefab = sourcePrefab,
+            obstacleId = obstacleId,
+            position = obj.transform.position,
+            eulerAngles = obj.transform.eulerAngles,
+            scale = obj.transform.lossyScale
+        };
+
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            spawnData.sprite = sr.sprite;
+            spawnData.sortingOrder = sr.sortingOrder;
+        }
+
+        BoxCollider2D box = obj.GetComponent<BoxCollider2D>();
+        if (box != null && box.enabled)
+        {
+            spawnData.hasBoxCollider = true;
+            spawnData.colliderOffset = box.offset;
+            spawnData.colliderSize = box.size;
+        }
+
+        return spawnData;
     }
 
     /// <summary>
@@ -245,14 +287,44 @@ public class LevelEditorManager : MonoBehaviour
             gameFlowManager.allMonstersInLevel = spawnedMonsters.ToArray();
         }
 
-        // 5. Clear and respawn extra obstacles
+        // 5. Clear and respawn extra obstacles and tutorial visual props
         ClearExistingObstacles();
         if (data.obstacles != null)
         {
             foreach (ObstacleSpawnData obsData in data.obstacles)
             {
-                if (obsData == null || obsData.obstaclePrefab == null) continue;
-                GameObject obsObj = InstantiateObject(obsData.obstaclePrefab);
+                if (obsData == null) continue;
+
+                GameObject obsObj = null;
+                if (obsData.obstaclePrefab != null)
+                {
+                    obsObj = InstantiateObject(obsData.obstaclePrefab);
+                }
+                else if (obsData.sprite != null || obsData.hasBoxCollider)
+                {
+                    string objName = string.IsNullOrEmpty(obsData.objectName) ? "LevelProp" : obsData.objectName;
+                    obsObj = new GameObject(objName);
+#if UNITY_EDITOR
+                    if (!Application.isPlaying)
+                    {
+                        Undo.RegisterCreatedObjectUndo(obsObj, "Spawn Level Prop");
+                    }
+#endif
+                    if (obsData.sprite != null)
+                    {
+                        SpriteRenderer sr = obsObj.AddComponent<SpriteRenderer>();
+                        sr.sprite = obsData.sprite;
+                        sr.sortingOrder = obsData.sortingOrder;
+                    }
+
+                    if (obsData.hasBoxCollider)
+                    {
+                        BoxCollider2D box = obsObj.AddComponent<BoxCollider2D>();
+                        box.offset = obsData.colliderOffset;
+                        box.size = obsData.colliderSize;
+                    }
+                }
+
                 if (obsObj != null)
                 {
                     obsObj.transform.position = obsData.position;
@@ -301,6 +373,16 @@ public class LevelEditorManager : MonoBehaviour
         {
             if (obs == null) continue;
             DestroyObjectImmediateOrRuntime(obs.gameObject);
+        }
+
+        string[] legacyContainers = { "Obstacle", "Tutorial" };
+        foreach (string containerName in legacyContainers)
+        {
+            GameObject legacyObj = GameObject.Find(containerName);
+            if (legacyObj != null)
+            {
+                DestroyObjectImmediateOrRuntime(legacyObj);
+            }
         }
     }
 

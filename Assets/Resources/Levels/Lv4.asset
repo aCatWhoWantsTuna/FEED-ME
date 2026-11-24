@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1111111111111111111111111111103, type: 3}
+  m_Name: Lv4
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelName: Lv4
+  prerequisiteLevel: {fileID: 11400000, guid: a1111111111111111111111111111303, type: 2}
+  maxPens: 2
+  spawnPointPosition: {x: 0, y: 4.68, z: 0}
+  pipePosition: {x: 0, y: 6.94, z: 0}
+  spawnInterval: 0.8
+  spawnRandomOffset: 0.05
+  candyWaves:
+  - candyPrefab: {fileID: 866460342496990989, guid: 36d6a6f423022da42ac7a8cedf2c4b66, type: 3}
+    amount: 3
+    candyIcon: {fileID: 21300000, guid: dbb8b4d98ca93034da122a2bd7c06ab9, type: 3}
+  - candyPrefab: {fileID: 866460342496990989, guid: 57ed0d9f3ec6e9047a6449074b466c6f, type: 3}
+    amount: 3
+    candyIcon: {fileID: 21300000, guid: 6dcdad2bb2895594199e13b6b64c725c, type: 3}
+  monsters:
+  - monsterType: 1
+    targetColorTag: BlueCandy
+    targetAmount: 3
+    groupPosition: {x: 0.92, y: -1.26, z: 0}
+    monsterWorldPosition: {x: 3.37244, y: -4.07634, z: 0}
+    speechBubbleDirection: 1
+    speechBubbleOffsetFromMonster: {x: -2.06, y: 1.18, z: 0}
+    numberTextAnchoredPosition: {x: -1.7, y: -2.1}
+    candyIconLocalPosition: {x: -0.000001, y: -1.1, z: 0}
+  - monsterType: 0
+    targetColorTag: RedCandy
+    targetAmount: 3
+    groupPosition: {x: 1.91, y: -2.65, z: 0}
+    monsterWorldPosition: {x: -2.36756, y: -2.32634, z: 0}
+    speechBubbleDirection: 0
+    speechBubbleOffsetFromMonster: {x: 2.08, y: 0.74, z: 0}
+    numberTextAnchoredPosition: {x: -1.2, y: -1.67}
+    candyIconLocalPosition: {x: 0.7, y: -0.8, z: 0}
+  obstacles:
+  - objectName: platform_no_shadow
+    obstaclePrefab: {fileID: 0}
+    obstacleId: platform_no_shadow
+    sprite: {fileID: 21300000, guid: 6dfcdcd6a5915af4d847b2bbce68eadf, type: 3}
+    sortingOrder: 0
+    hasBoxCollider: 1
+    colliderOffset: {x: -0.219795, y: 0.309258}
+    colliderSize: {x: 6.454297, y: 1.263928}
+    position: {x: 0.33, y: 1.97, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 37.145}
+    scale: {x: 0.305878, y: 0.243739, z: 0.2}
+  - objectName: 6.greedy
+    obstaclePrefab: {fileID: 0}
+    obstacleId: 6.greedy
+    sprite: {fileID: 21300000, guid: 8a553e16df545fa4ea0ffd31cb5c1bc1, type: 3}
+    sortingOrder: -100
+    hasBoxCollider: 0
+    colliderOffset: {x: 0, y: 0}
+    colliderSize: {x: 1, y: 1}
+    position: {x: 5.63, y: 0.29, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 0}
+    scale: {x: 0.811, y: 0.7745, z: 1}

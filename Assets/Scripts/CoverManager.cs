@@ -267,6 +267,7 @@ public class CoverUIManager : MonoBehaviour
 
     /// <summary>
     /// Highlights the chosen level slot in the 3x3 grid and populates the right-side info card.
+    /// Checks prerequisite level unlock conditions for each slot.
     /// </summary>
     public void SelectLevelSlot(int slotIndex)
     {
@@ -276,7 +277,9 @@ public class CoverUIManager : MonoBehaviour
 
         for (int i = 0; i < levelSlotButtons.Length; i++)
         {
-            bool isImplemented = i < totalDefinedLevels && db.GetLevelByIndex(i) != null;
+            LevelData slotData = (i < totalDefinedLevels && db != null) ? db.GetLevelByIndex(i) : null;
+            bool isUnlocked = slotData != null && PlayerProgressManager.IsLevelUnlocked(slotData);
+
             if (levelSlotBackgrounds != null && i < levelSlotBackgrounds.Length && levelSlotBackgrounds[i] != null)
             {
                 if (i == selectedLevelIndex)
@@ -285,7 +288,7 @@ public class CoverUIManager : MonoBehaviour
                 }
                 else
                 {
-                    levelSlotBackgrounds[i].color = isImplemented ? availableSlotColor : lockedSlotColor;
+                    levelSlotBackgrounds[i].color = isUnlocked ? availableSlotColor : lockedSlotColor;
                 }
             }
 
@@ -296,7 +299,8 @@ public class CoverUIManager : MonoBehaviour
         }
 
         LevelData selectedData = (db != null) ? db.GetLevelByIndex(selectedLevelIndex) : null;
-        bool canPlay = selectedData != null;
+        bool exists = selectedData != null;
+        bool canPlay = exists && PlayerProgressManager.IsLevelUnlocked(selectedData);
 
         if (selectedLevelTitleText != null)
         {
@@ -305,17 +309,17 @@ public class CoverUIManager : MonoBehaviour
                 : $"LEVEL {selectedLevelIndex + 1} (LOCKED)";
         }
 
-        int availReward = canPlay ? PlayerProgressManager.GetAvailableReward(selectedData) : 0;
-        int earnedReward = canPlay ? PlayerProgressManager.GetEarnedReward(selectedData) : 0;
+        int availReward = exists ? PlayerProgressManager.GetAvailableReward(selectedData) : 0;
+        int earnedReward = exists ? PlayerProgressManager.GetEarnedReward(selectedData) : 0;
 
         if (availRewardText != null)
         {
-            availRewardText.text = canPlay ? $"AVAIL:      x {availReward}" : "AVAIL:      x -";
+            availRewardText.text = exists ? $"AVAIL:      x {availReward}" : "AVAIL:      x -";
         }
 
         if (getRewardText != null)
         {
-            getRewardText.text = canPlay ? $"GET:        x {earnedReward}" : "GET:        x -";
+            getRewardText.text = exists ? $"GET:        x {earnedReward}" : "GET:        x -";
         }
 
         if (confirmPlayButton != null)
@@ -325,12 +329,13 @@ public class CoverUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts gameplay for the currently selected level slot.
+    /// Starts gameplay for the currently selected level slot if it exists and is unlocked.
     /// </summary>
     public void OnConfirmPlayClicked()
     {
         LevelDatabase db = LevelDatabase.Instance;
-        if (db != null && db.GetLevelByIndex(selectedLevelIndex) != null)
+        LevelData selectedData = db != null ? db.GetLevelByIndex(selectedLevelIndex) : null;
+        if (selectedData != null && PlayerProgressManager.IsLevelUnlocked(selectedData))
         {
             LevelController.LoadLevelByIndex(selectedLevelIndex);
         }

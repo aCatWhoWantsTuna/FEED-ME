@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1111111111111111111111111111103, type: 3}
+  m_Name: Lv1
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelName: Lv1
+  prerequisiteLevel: {fileID: 0}
+  maxPens: 2
+  spawnPointPosition: {x: 0, y: 4.68, z: 0}
+  pipePosition: {x: 0, y: 6.94, z: 0}
+  spawnInterval: 0.8
+  spawnRandomOffset: 0.05
+  candyWaves:
+  - candyPrefab: {fileID: 866460342496990989, guid: 57ed0d9f3ec6e9047a6449074b466c6f, type: 3}
+    amount: 3
+    candyIcon: {fileID: 21300000, guid: 6dcdad2bb2895594199e13b6b64c725c, type: 3}
+  monsters:
+  - monsterType: 0
+    targetColorTag: RedCandy
+    targetAmount: 3
+    groupPosition: {x: -0.2, y: -4.1, z: 0}
+    monsterWorldPosition: {x: -4.47756, y: -3.77634, z: 0}
+    speechBubbleDirection: 0
+    speechBubbleOffsetFromMonster: {x: 2.08, y: 0.74, z: 0}
+    numberTextAnchoredPosition: {x: -1.2, y: -1.67}
+    candyIconLocalPosition: {x: 0.7, y: -0.8, z: 0}
+  obstacles:
+  - objectName: 2.Pipe
+    obstaclePrefab: {fileID: 0}
+    obstacleId: 2.Pipe
+    sprite: {fileID: 21300000, guid: 6029c90d68c39a0458b58bf4345806c1, type: 3}
+    sortingOrder: 0
+    hasBoxCollider: 0
+    colliderOffset: {x: 0, y: 0}
+    colliderSize: {x: 1, y: 1}
+    position: {x: -0.03, y: 3.39, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 0}
+    scale: {x: 0.86, y: 0.8182, z: 1}
+  - objectName: 4.draw
+    obstaclePrefab: {fileID: 0}
+    obstacleId: 4.draw
+    sprite: {fileID: 21300000, guid: 6a9b614c220701e4cb694642ba1bd88d, type: 3}
+    sortingOrder: 0
+    hasBoxCollider: 0
+    colliderOffset: {x: 0, y: 0}
+    colliderSize: {x: 1, y: 1}
+    position: {x: -3.21, y: -0.14, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - objectName: 4.line
+    obstaclePrefab: {fileID: 0}
+    obstacleId: 4.line
+    sprite: {fileID: 21300000, guid: 0c70b30ff9b6d3243b542504417dce7f, type: 3}
+    sortingOrder: -200
+    hasBoxCollider: 0
+    colliderOffset: {x: 0, y: 0}
+    colliderSize: {x: 1, y: 1}
+    position: {x: -2.97, y: 0.19, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - objectName: 6.Pause
+    obstaclePrefab: {fileID: 0}
+    obstacleId: 6.Pause
+    sprite: {fileID: 21300000, guid: 8bb8a5d94a8060a49b0a185d7cc4fd12, type: 3}
+    sortingOrder: 0
+    hasBoxCollider: 0
+    colliderOffset: {x: 0, y: 0}
+    colliderSize: {x: 1, y: 1}
+    position: {x: 4.56226, y: 1.01852, z: 0}
+    eulerAngles: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}

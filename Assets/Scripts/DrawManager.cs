@@ -35,7 +35,7 @@ public class DrawManager : MonoBehaviour
     {
         if (!isInitialized)
         {
-            SetMaxPens(penImages != null ? penImages.Length : 0);
+            SetMaxPens(GetActivePenCapacity());
         }
 
         if (customPenCursor != null)

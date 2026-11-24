@@ -52,13 +52,19 @@ public class LevelController : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns true if there is another level after the current level in the LevelDatabase.
-    /// </summary5
+    /// Returns true if there is another unlocked level after the current level in the LevelDatabase.
+    /// </summary>
     public static bool HasNextLevel()
     {
         if (LevelDatabase.Instance != null && LevelDatabase.Instance.levels.Count > 0)
         {
-            return CurrentLevelIndex + 1 < LevelDatabase.Instance.levels.Count;
+            int nextIndex = CurrentLevelIndex + 1;
+            if (nextIndex < LevelDatabase.Instance.levels.Count)
+            {
+                LevelData nextData = LevelDatabase.Instance.GetLevelByIndex(nextIndex);
+                return nextData != null && PlayerProgressManager.IsLevelUnlocked(nextData);
+            }
+            return false;
         }
         return !IsFinalLevel();
     }

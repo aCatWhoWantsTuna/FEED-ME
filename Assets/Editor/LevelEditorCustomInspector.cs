@@ -344,4 +344,87 @@ public static class LevelEditorMenuTools
 
         Debug.Log("[LevelEditorMenuTools] Successfully exported Level_1, Level_2, and Level_3 to Assets/Resources/Levels/!");
     }
+
+    [MenuItem("Tools/Level Editor/Batch Export Tutorial Scenes (1 ~ 7 -> Lv1 ~ Lv7)")]
+    public static void BatchExportTutorialScenes1To7()
+    {
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            return;
+        }
+
+        string originalScenePath = SceneManager.GetActiveScene().path;
+
+        if (!AssetDatabase.IsValidFolder("Assets/Resources"))
+        {
+            AssetDatabase.CreateFolder("Assets", "Resources");
+        }
+        if (!AssetDatabase.IsValidFolder("Assets/Resources/Levels"))
+        {
+            AssetDatabase.CreateFolder("Assets/Resources", "Levels");
+        }
+
+        LevelDatabase db = LevelDatabase.Instance;
+        if (db == null)
+        {
+            db = ScriptableObject.CreateInstance<LevelDatabase>();
+            AssetDatabase.CreateAsset(db, "Assets/Resources/LevelDatabase.asset");
+        }
+
+        List<LevelData> exportedLevels = new List<LevelData>();
+
+        for (int i = 1; i <= 7; i++)
+        {
+            string scenePath = $"Assets/Scenes/{i}.unity";
+            if (!File.Exists(scenePath))
+            {
+                Debug.LogWarning($"[LevelEditorMenuTools] Scene not found: {scenePath}");
+                continue;
+            }
+
+            EditorSceneManager.OpenScene(scenePath);
+
+            string levelName = $"Lv{i}";
+            string assetPath = $"Assets/Resources/Levels/{levelName}.asset";
+            LevelData levelData = AssetDatabase.LoadAssetAtPath<LevelData>(assetPath);
+            if (levelData == null)
+            {
+                levelData = ScriptableObject.CreateInstance<LevelData>();
+                AssetDatabase.CreateAsset(levelData, assetPath);
+            }
+
+            levelData.levelName = levelName;
+
+            GameObject tempObj = new GameObject("_TempExporter");
+            LevelEditorManager exporter = tempObj.AddComponent<LevelEditorManager>();
+            exporter.levelDatabase = db;
+            exporter.PopulateLevelDataFromScene(levelData);
+            Object.DestroyImmediate(tempObj);
+
+            exportedLevels.Add(levelData);
+        }
+
+        // Configure prerequisite chain: Lv1 is unlocked by default, Lv2~Lv7 require the previous level
+        for (int i = 0; i < exportedLevels.Count; i++)
+        {
+            LevelData current = exportedLevels[i];
+            current.prerequisiteLevel = (i == 0) ? null : exportedLevels[i - 1];
+            EditorUtility.SetDirty(current);
+
+            if (!db.levels.Contains(current))
+            {
+                db.levels.Add(current);
+            }
+        }
+
+        EditorUtility.SetDirty(db);
+        AssetDatabase.SaveAssets();
+
+        if (!string.IsNullOrEmpty(originalScenePath) && File.Exists(originalScenePath))
+        {
+            EditorSceneManager.OpenScene(originalScenePath);
+        }
+
+        Debug.Log("[LevelEditorMenuTools] Successfully exported scenes 1~7 to Assets/Resources/Levels/Lv1~Lv7 with sequential unlock prerequisites!");
+    }
 }

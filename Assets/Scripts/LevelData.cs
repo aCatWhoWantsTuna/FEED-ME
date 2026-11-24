@@ -56,16 +56,34 @@ public class MonsterSpawnData
 }
 
 /// <summary>
-/// Serializable data representing an extra obstacle or platform in a level.
+/// Serializable data representing an extra obstacle, platform, or tutorial visual prop in a level.
 /// </summary>
 [Serializable]
 public class ObstacleSpawnData
 {
-    [Tooltip("Prefab to instantiate for this obstacle.")]
+    [Tooltip("Name of the spawned object in the hierarchy.")]
+    public string objectName = "Obstacle";
+
+    [Tooltip("Optional prefab to instantiate for this obstacle.")]
     public GameObject obstaclePrefab;
 
     [Tooltip("Optional identifier if resolved via LevelDatabase.")]
     public string obstacleId;
+
+    [Tooltip("Sprite to display when spawned without a prefab (e.g., platform or tutorial hint sprite).")]
+    public Sprite sprite;
+
+    [Tooltip("Sorting order for the SpriteRenderer when spawned without a prefab.")]
+    public int sortingOrder = 0;
+
+    [Tooltip("Whether to attach a BoxCollider2D when spawned without a prefab.")]
+    public bool hasBoxCollider = false;
+
+    [Tooltip("BoxCollider2D offset when hasBoxCollider is true.")]
+    public Vector2 colliderOffset = Vector2.zero;
+
+    [Tooltip("BoxCollider2D size when hasBoxCollider is true.")]
+    public Vector2 colliderSize = Vector2.one;
 
     public Vector3 position;
     public Vector3 eulerAngles;
@@ -79,8 +97,11 @@ public class ObstacleSpawnData
 public class LevelData : ScriptableObject
 {
     [Header("-- Basic Level Info --")]
-    [Tooltip("Display or identifier name for this level (e.g., Level_1).")]
+    [Tooltip("Display or identifier name for this level (e.g., Lv1).")]
     public string levelName = "Level_1";
+
+    [Tooltip("Prerequisite level that must be cleared before this level is unlocked. Leave empty (None) if unlocked by default.")]
+    public LevelData prerequisiteLevel;
 
     [Tooltip("Maximum number of pen strokes allowed in this level.")]
     public int maxPens = 2;

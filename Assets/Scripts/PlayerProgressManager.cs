@@ -8,6 +8,16 @@ public static class PlayerProgressManager
 {
     private const string TotalCurrencyKey = "FeedMe_TotalCurrency";
     private const string LevelRewardPrefix = "FeedMe_LevelReward_";
+    private const string LevelClearedPrefix = "FeedMe_LevelCleared_";
+
+    /// <summary>
+    /// Returns the persistent storage key used for a given LevelData asset.
+    /// </summary>
+    public static string GetLevelKey(LevelData levelData)
+    {
+        if (levelData == null) return string.Empty;
+        return string.IsNullOrEmpty(levelData.levelName) ? levelData.name : levelData.levelName;
+    }
 
     /// <summary>
     /// Returns the total currency currently owned by the player.
@@ -54,8 +64,7 @@ public static class PlayerProgressManager
     public static int GetEarnedReward(LevelData levelData)
     {
         if (levelData == null) return 0;
-        string key = string.IsNullOrEmpty(levelData.levelName) ? levelData.name : levelData.levelName;
-        return GetEarnedReward(key);
+        return GetEarnedReward(GetLevelKey(levelData));
     }
 
     /// <summary>
@@ -68,13 +77,53 @@ public static class PlayerProgressManager
     }
 
     /// <summary>
-    /// Records level completion and awards any newly earned candy currency to the player's total balance.
+    /// Returns true if the specified level has been cleared at least once by the player.
+    /// </summary>
+    public static bool IsLevelCleared(LevelData levelData)
+    {
+        if (levelData == null) return false;
+        return IsLevelCleared(GetLevelKey(levelData));
+    }
+
+    /// <summary>
+    /// Returns true if the level with the given name has been cleared at least once by the player.
+    /// </summary>
+    public static bool IsLevelCleared(string levelName)
+    {
+        if (string.IsNullOrEmpty(levelName)) return false;
+        if (PlayerPrefs.GetInt(LevelClearedPrefix + levelName, 0) == 1)
+        {
+            return true;
+        }
+        return GetEarnedReward(levelName) > 0;
+    }
+
+    /// <summary>
+    /// Returns true if the level has no prerequisite level, or if its prerequisite level has been cleared.
+    /// </summary>
+    public static bool IsLevelUnlocked(LevelData levelData)
+    {
+        if (levelData == null) return false;
+        if (levelData.prerequisiteLevel == null)
+        {
+            return true;
+        }
+        return IsLevelCleared(levelData.prerequisiteLevel);
+    }
+
+    /// <summary>
+    /// Records level completion, marks the level as cleared, and awards any newly earned candy currency.
     /// </summary>
     public static void RecordLevelCompleted(LevelData levelData)
     {
         if (levelData == null) return;
 
-        string key = string.IsNullOrEmpty(levelData.levelName) ? levelData.name : levelData.levelName;
+        string key = GetLevelKey(levelData);
+        if (!string.IsNullOrEmpty(key))
+        {
+            PlayerPrefs.SetInt(LevelClearedPrefix + key, 1);
+        }
+
         int available = GetAvailableReward(levelData);
         int previousEarned = GetEarnedReward(key);
 
@@ -84,6 +133,10 @@ public static class PlayerProgressManager
             PlayerPrefs.SetInt(LevelRewardPrefix + key, available);
             AddCurrency(newlyEarned);
             Debug.Log($"[PlayerProgressManager] Cleared '{key}'! Awarded +{newlyEarned} currency (Total: {GetTotalCurrency()}).");
+        }
+        else
+        {
+            PlayerPrefs.Save();
         }
     }
 

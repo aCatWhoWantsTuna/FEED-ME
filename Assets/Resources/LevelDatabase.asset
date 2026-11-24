@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: LevelDatabase
   m_EditorClassIdentifier: Assembly-CSharp::LevelDatabase
   levels:
-  - {fileID: 11400000, guid: 7f4a777d111004e4fab413439b78c456, type: 2}
-  - {fileID: 11400000, guid: a1111111111111111111111111111201, type: 2}
-  - {fileID: 11400000, guid: ee3509f8496578f45a9b4a16e84c9171, type: 2}
-  - {fileID: 11400000, guid: 58a88717e48bde943beaa356ffc5382e, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111301, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111302, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111303, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111304, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111305, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111306, type: 2}
+  - {fileID: 11400000, guid: a1111111111111111111111111111307, type: 2}
   pinkMonsterGroupPrefab: {fileID: 2138337706, guid: a1111111111111111111111111111101, type: 3}
   blueMonsterGroupPrefab: {fileID: 455610364, guid: a1111111111111111111111111111102, type: 3}
   pinkCandyPrefab: {fileID: 866460342496990989, guid: 57ed0d9f3ec6e9047a6449074b466c6f, type: 3}
