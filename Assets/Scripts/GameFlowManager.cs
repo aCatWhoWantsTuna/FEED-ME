@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
@@ -60,6 +61,18 @@ public class GameFlowManager : MonoBehaviour
         InitializeLevelIfNeeded();
         BuildSpawnQueue();
         GeneratePreviewUI();
+
+        // Prevent UI button selection from triggering a duplicate Submit on Spacebar press
+        if (playPauseButtonImage != null)
+        {
+            Button playPauseBtn = playPauseButtonImage.GetComponent<Button>();
+            if (playPauseBtn != null)
+            {
+                Navigation nav = playPauseBtn.navigation;
+                nav.mode = Navigation.Mode.None;
+                playPauseBtn.navigation = nav;
+            }
+        }
     }
 
     /// <summary>
@@ -154,6 +167,15 @@ public class GameFlowManager : MonoBehaviour
     void Update()
     {
         if (isGameEnded) return;
+
+        // Toggle candy spawning play/pause with Spacebar during active gameplay
+        if (Time.timeScale > 0f &&
+            (victoryPanel == null || !victoryPanel.activeInHierarchy) &&
+            Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            TogglePlayPause();
+        }
 
         CheckWinCondition();
     }
