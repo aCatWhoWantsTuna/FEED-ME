@@ -118,6 +118,45 @@ public class LevelEditorManagerInspector : Editor
             manager.SyncSceneMonstersToGameFlowManager();
             EditorUtility.SetDirty(manager.gameFlowManager);
         }
+
+        EditorGUILayout.Space(8);
+        EditorGUILayout.LabelField("Framed Play Area Tools", EditorStyles.boldLabel);
+        Rect playArea = manager.GetPlayAreaWorldRect();
+        EditorGUILayout.HelpBox(
+            $"Framed Play Area World Bounds:\nX: [{playArea.xMin:F2}, {playArea.xMax:F2}] (Center: {playArea.center.x:F2})\nY: [{playArea.yMin:F2}, {playArea.yMax:F2}]",
+            MessageType.Info);
+
+        List<GameObject> outOfBounds = manager.GetOutOfBoundsSceneObjects();
+        if (outOfBounds.Count > 0)
+        {
+            string names = string.Join(", ", outOfBounds.ConvertAll(o => o.name));
+            EditorGUILayout.HelpBox(
+                $"{outOfBounds.Count} object(s) outside the framed play area: {names}",
+                MessageType.Warning);
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Center Pipe & SpawnPoint", GUILayout.Height(26)))
+        {
+            manager.CenterPipeInPlayArea();
+        }
+        GUI.backgroundColor = outOfBounds.Count > 0 ? new Color(1f, 0.85f, 0.55f) : Color.white;
+        if (GUILayout.Button("Clamp Out-of-Bounds Objects", GUILayout.Height(26)))
+        {
+            int count = manager.ClampOutOfBoundsObjectsToPlayArea();
+            Debug.Log($"[LevelEditorManager] Clamped {count} object(s) inside the framed play area.");
+        }
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space(8);
+        EditorGUILayout.LabelField("In-Game UI Migration", EditorStyles.boldLabel);
+        GUI.backgroundColor = new Color(1f, 0.92f, 0.65f);
+        if (GUILayout.Button("Step 1: Apply New In-Game Frame & HUD Layout", GUILayout.Height(28)))
+        {
+            InGameUILayoutSetup.ApplyStep1LayoutInActiveScene();
+        }
+        GUI.backgroundColor = Color.white;
     }
 }
 
@@ -135,27 +174,24 @@ public class PauseMenuManagerInspector : Editor
 
         EditorGUILayout.Space(8);
         GUI.backgroundColor = new Color(0.6f, 0.95f, 0.6f);
-        if (GUILayout.Button("Generate PauseMenuPanel in Canvas", GUILayout.Height(30)))
+        if (GUILayout.Button("Step 4: Build / Rebuild New Leave Dialog PauseMenu", GUILayout.Height(30)))
         {
-            Undo.RecordObject(manager, "Generate PauseMenuPanel");
-            if (manager.windowBoardSprite == null)
+            InGameUILayoutSetup.ApplyStep4PauseMenuInActiveScene();
+        }
+
+        GUI.backgroundColor = Color.white;
+        if (manager.pauseMenuPanel != null)
+        {
+            string toggleLabel = manager.pauseMenuPanel.activeSelf
+                ? "Hide PauseMenuPanel Preview"
+                : "Preview PauseMenuPanel in Scene";
+            if (GUILayout.Button(toggleLabel, GUILayout.Height(24)))
             {
-                manager.windowBoardSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_board_d.png");
-            }
-            if (manager.buttonFrameSprite == null)
-            {
-                manager.buttonFrameSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Image/pic_preview_frame.png");
-            }
-            GameObject created = manager.GeneratePauseMenuPanel();
-            if (created != null)
-            {
-                Undo.RegisterCreatedObjectUndo(created, "Create PauseMenuPanel");
-                Selection.activeGameObject = created;
-                EditorUtility.SetDirty(manager);
+                Undo.RecordObject(manager.pauseMenuPanel, "Toggle PauseMenuPanel Preview");
+                manager.pauseMenuPanel.SetActive(!manager.pauseMenuPanel.activeSelf);
                 EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
             }
         }
-        GUI.backgroundColor = Color.white;
     }
 }
 

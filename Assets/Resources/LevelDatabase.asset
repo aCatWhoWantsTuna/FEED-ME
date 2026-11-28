@@ -20,13 +20,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a1111111111111111111111111111305, type: 2}
   - {fileID: 11400000, guid: a1111111111111111111111111111306, type: 2}
   - {fileID: 11400000, guid: a1111111111111111111111111111307, type: 2}
-  - {fileID: 11400000, guid: 0ca21a71017157a4ea9f5c7d2dddb77d, type: 2}
   pinkMonsterGroupPrefab: {fileID: 2138337706, guid: a1111111111111111111111111111101, type: 3}
   blueMonsterGroupPrefab: {fileID: 455610364, guid: a1111111111111111111111111111102, type: 3}
   pinkCandyPrefab: {fileID: 866460342496990989, guid: 57ed0d9f3ec6e9047a6449074b466c6f, type: 3}
   pinkCandyIcon: {fileID: 21300000, guid: 6dcdad2bb2895594199e13b6b64c725c, type: 3}
   blueCandyPrefab: {fileID: 866460342496990989, guid: 36d6a6f423022da42ac7a8cedf2c4b66, type: 3}
   blueCandyIcon: {fileID: 21300000, guid: dbb8b4d98ca93034da122a2bd7c06ab9, type: 3}
-  bubbleRightOfMonsterSprite: {fileID: 21300000, guid: 4f79e1c396879b94a908020f9a5e024a, type: 3}
-  bubbleLeftOfMonsterSprite: {fileID: 21300000, guid: 443ecfe4dfa38cd44b53270052296b5a, type: 3}
+  bubbleRightOfMonsterSprite: {fileID: -3535371064164551921, guid: 9edbaa04de9f68b429cf355ad4e640c0, type: 3}
+  bubbleLeftOfMonsterSprite: {fileID: -301625712025360669, guid: 6648ae3f6a63e3244980d88955ecf9cc, type: 3}
   pauseMenuPrefab: {fileID: 0}

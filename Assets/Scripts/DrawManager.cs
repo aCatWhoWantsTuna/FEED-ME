@@ -16,6 +16,13 @@ public class DrawManager : MonoBehaviour
     public GameObject customPenCursor;
     public Vector2 cursorOffset = new Vector2(0, 0);
 
+    [Header("-- Drawable Play Area (Normalized Viewport 0~1) --")]
+    [Tooltip("Restricts drawing and the custom pen cursor to the framed play area.")]
+    public bool restrictToPlayArea = true;
+
+    [Tooltip("Normalized viewport rect (x, y, width, height) matching the interior of frame.png.")]
+    public Rect playAreaViewportRect = new Rect(0.152f, 0.024f, 0.817f, 0.956f);
+
     private int activePenCapacity;
     private int pensLeft;
     private Sprite[] originalPenSprites;
@@ -40,8 +47,18 @@ public class DrawManager : MonoBehaviour
 
         if (customPenCursor != null)
         {
-            Cursor.visible = false;
+            customPenCursor.SetActive(false);
         }
+        Cursor.visible = true;
+    }
+
+    void OnDisable()
+    {
+        if (customPenCursor != null)
+        {
+            customPenCursor.SetActive(false);
+        }
+        Cursor.visible = true;
     }
 
     private void CacheOriginalPenSprites()
@@ -106,45 +123,62 @@ public class DrawManager : MonoBehaviour
     {
         if (Mouse.current == null) return;
 
-        Vector3 mouseScreenPos = Mouse.current.position.value;
-        mouseScreenPos.z = 10f;
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        // If game is frozen (e.g., VictoryPanel or PauseMenu), restore system cursor and skip drawing
+        if (Time.timeScale <= 0f)
+        {
+            if (customPenCursor != null) customPenCursor.SetActive(false);
+            Cursor.visible = true;
+            return;
+        }
+
+        Vector2 mouseScreenPos2D = Mouse.current.position.value;
+        Vector3 mouseScreenPos = new Vector3(mouseScreenPos2D.x, mouseScreenPos2D.y, Mathf.Abs(cam.transform.position.z));
+        Vector2 mouseWorldPos = cam.ScreenToWorldPoint(mouseScreenPos);
+        Vector2 viewportPos = cam.ScreenToViewportPoint(mouseScreenPos);
+
+        bool isInsidePlayArea = !restrictToPlayArea || playAreaViewportRect.Contains(viewportPos);
+        bool isPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        Vector2 clampedWorldPos = restrictToPlayArea ? ClampWorldPointToPlayArea(mouseWorldPos, cam) : mouseWorldPos;
 
         // Update custom pen cursor position and visibility
         if (customPenCursor != null)
         {
-            customPenCursor.transform.position = mouseWorldPos + cursorOffset;
-
-            if (pensLeft <= 0 && !hasStartedDrawingThisStroke)
+            bool canShowPenCursor = hasStartedDrawingThisStroke || (pensLeft > 0 && isInsidePlayArea && !isPointerOverUI);
+            if (canShowPenCursor)
             {
-                customPenCursor.SetActive(false);
-                Cursor.visible = true; // Restore the default system cursor
+                Vector2 cursorWorldPos = hasStartedDrawingThisStroke ? clampedWorldPos : mouseWorldPos;
+                customPenCursor.transform.position = cursorWorldPos + cursorOffset;
+                customPenCursor.SetActive(true);
+                Cursor.visible = false;
             }
             else
             {
-                customPenCursor.SetActive(true);
-                Cursor.visible = false;
+                customPenCursor.SetActive(false);
+                Cursor.visible = true; // Restore default system cursor outside play area or over UI buttons
             }
         }
 
         // Stop if no pens are left and not currently finishing a stroke
         if (pensLeft <= 0 && !hasStartedDrawingThisStroke) return;
 
-        // Mouse button pressed: start drawing a new line
+        // Mouse button pressed: start drawing a new line only inside the framed play area
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+            if (isPointerOverUI || !isInsidePlayArea) return;
 
             hasStartedDrawingThisStroke = true;
-            CreateLine(mouseWorldPos);
+            CreateLine(clampedWorldPos);
         }
 
-        // Mouse button held and moving: append points to the active line
+        // Mouse button held and moving: append clamped points to the active line
         if (Mouse.current.leftButton.isPressed && hasStartedDrawingThisStroke)
         {
-            if (mousePositions != null && Vector2.Distance(mouseWorldPos, mousePositions[mousePositions.Count - 1]) > 0.01f)
+            if (mousePositions != null && Vector2.Distance(clampedWorldPos, mousePositions[mousePositions.Count - 1]) > 0.01f)
             {
-                UpdateLine(mouseWorldPos);
+                UpdateLine(clampedWorldPos);
             }
         }
 
@@ -162,6 +196,42 @@ public class DrawManager : MonoBehaviour
             pensLeft--;
             Debug.Log("Pen stroke completed! Pens remaining: " + pensLeft);
         }
+    }
+
+    /// <summary>
+    /// Computes the world-space rectangle corresponding to playAreaViewportRect for the given camera.
+    /// </summary>
+    public Rect GetPlayAreaWorldRect(Camera cam = null)
+    {
+        if (cam == null) cam = Camera.main;
+        if (cam == null) return new Rect(-7.6f, -4.95f, 15.2f, 9.9f);
+
+        float zDist = Mathf.Abs(cam.transform.position.z);
+        Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(playAreaViewportRect.xMin, playAreaViewportRect.yMin, zDist));
+        Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(playAreaViewportRect.xMax, playAreaViewportRect.yMax, zDist));
+        return Rect.MinMaxRect(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y);
+    }
+
+    /// <summary>
+    /// Clamps a world-space point to remain inside the framed play area.
+    /// </summary>
+    public Vector2 ClampWorldPointToPlayArea(Vector2 worldPos, Camera cam = null)
+    {
+        Rect worldRect = GetPlayAreaWorldRect(cam);
+        return new Vector2(
+            Mathf.Clamp(worldPos.x, worldRect.xMin, worldRect.xMax),
+            Mathf.Clamp(worldPos.y, worldRect.yMin, worldRect.yMax));
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!restrictToPlayArea) return;
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        Rect worldRect = GetPlayAreaWorldRect(cam);
+        Gizmos.color = new Color(0.2f, 0.85f, 0.45f, 0.9f);
+        Gizmos.DrawWireCube(worldRect.center, new Vector3(worldRect.width, worldRect.height, 0f));
     }
 
     void CreateLine(Vector2 startPos)

@@ -29,6 +29,13 @@ public class LevelEditorManager : MonoBehaviour
     public GameFlowManager gameFlowManager;
     public DrawManager drawManager;
 
+    [Header("-- Framed Play Area Editor Guides --")]
+    [Tooltip("Draws the framed play area boundary in Scene View while editing levels.")]
+    public bool showPlayAreaGizmo = true;
+
+    [Tooltip("Inner margin (world units) kept when clamping monsters/obstacles inside the play area.")]
+    public float playAreaClampMargin = 0.5f;
+
     public LevelDatabase Database
     {
         get
@@ -285,6 +292,7 @@ public class LevelEditorManager : MonoBehaviour
         if (gameFlowManager != null)
         {
             gameFlowManager.allMonstersInLevel = spawnedMonsters.ToArray();
+            gameFlowManager.UpdateLevelTitleUI(data);
         }
 
         // 5. Clear and respawn extra obstacles and tutorial visual props
@@ -439,8 +447,9 @@ public class LevelEditorManager : MonoBehaviour
         Monster monster = groupObj.GetComponentInChildren<Monster>(true);
         if (monster != null)
         {
+            Rect playArea = GetPlayAreaWorldRect();
             MonsterSpawnData defaultData = monster.ToSpawnData(db);
-            defaultData.monsterWorldPosition = Vector3.zero;
+            defaultData.monsterWorldPosition = new Vector3(playArea.center.x, playArea.center.y, 0f);
             monster.ApplySpawnData(defaultData, db);
         }
 
@@ -466,6 +475,177 @@ public class LevelEditorManager : MonoBehaviour
         {
             gameFlowManager.allMonstersInLevel = FindObjectsByType<Monster>(FindObjectsInactive.Exclude);
         }
+    }
+
+    /// <summary>
+    /// Returns the world-space rectangle of the framed play area (delegated to DrawManager as the single source of truth).
+    /// </summary>
+    public Rect GetPlayAreaWorldRect()
+    {
+        ResolveManagers();
+        if (drawManager != null)
+        {
+            return drawManager.GetPlayAreaWorldRect(Camera.main);
+        }
+
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            float zDist = Mathf.Abs(cam.transform.position.z);
+            Vector3 bl = cam.ViewportToWorldPoint(new Vector3(0.152f, 0.024f, zDist));
+            Vector3 tr = cam.ViewportToWorldPoint(new Vector3(0.969f, 0.980f, zDist));
+            return Rect.MinMaxRect(bl.x, bl.y, tr.x, tr.y);
+        }
+
+        return new Rect(-7.6f, -4.95f, 15.2f, 9.9f);
+    }
+
+    /// <summary>
+    /// Returns a list of active scene Monsters and LevelObstacles whose positions lie outside the framed play area.
+    /// </summary>
+    public List<GameObject> GetOutOfBoundsSceneObjects()
+    {
+        List<GameObject> outOfBounds = new List<GameObject>();
+        Rect playArea = GetPlayAreaWorldRect();
+
+        Monster[] monsters = FindObjectsByType<Monster>(FindObjectsInactive.Exclude);
+        foreach (Monster m in monsters)
+        {
+            if (m == null) continue;
+            if (!playArea.Contains(m.transform.position))
+            {
+                GameObject root = m.transform.parent != null ? m.transform.parent.gameObject : m.gameObject;
+                outOfBounds.Add(root);
+            }
+        }
+
+        LevelObstacle[] obstacles = FindObjectsByType<LevelObstacle>(FindObjectsInactive.Exclude);
+        foreach (LevelObstacle obs in obstacles)
+        {
+            if (obs == null) continue;
+            if (!playArea.Contains(obs.transform.position))
+            {
+                outOfBounds.Add(obs.gameObject);
+            }
+        }
+
+        return outOfBounds;
+    }
+
+    /// <summary>
+    /// Clamps any out-of-bounds Monsters and LevelObstacles back inside the framed play area.
+    /// </summary>
+    public int ClampOutOfBoundsObjectsToPlayArea()
+    {
+        Rect playArea = GetPlayAreaWorldRect();
+        float minX = playArea.xMin + playAreaClampMargin;
+        float maxX = playArea.xMax - playAreaClampMargin;
+        float minY = playArea.yMin + playAreaClampMargin;
+        float maxY = playArea.yMax - playAreaClampMargin;
+
+        int clampedCount = 0;
+
+        Monster[] monsters = FindObjectsByType<Monster>(FindObjectsInactive.Exclude);
+        foreach (Monster m in monsters)
+        {
+            if (m == null) continue;
+            Vector3 pos = m.transform.position;
+            if (!playArea.Contains(pos))
+            {
+                Vector3 clampedPos = new Vector3(
+                    Mathf.Clamp(pos.x, minX, maxX),
+                    Mathf.Clamp(pos.y, minY, maxY),
+                    pos.z);
+                Vector3 delta = clampedPos - pos;
+                Transform root = m.transform.parent != null ? m.transform.parent : m.transform;
+#if UNITY_EDITOR
+                if (!Application.isPlaying) Undo.RecordObject(root, "Clamp Monster Inside Play Area");
+#endif
+                root.position += delta;
+                clampedCount++;
+            }
+        }
+
+        LevelObstacle[] obstacles = FindObjectsByType<LevelObstacle>(FindObjectsInactive.Exclude);
+        foreach (LevelObstacle obs in obstacles)
+        {
+            if (obs == null) continue;
+            Vector3 pos = obs.transform.position;
+            if (!playArea.Contains(pos))
+            {
+                Vector3 clampedPos = new Vector3(
+                    Mathf.Clamp(pos.x, minX, maxX),
+                    Mathf.Clamp(pos.y, minY, maxY),
+                    pos.z);
+#if UNITY_EDITOR
+                if (!Application.isPlaying) Undo.RecordObject(obs.transform, "Clamp Obstacle Inside Play Area");
+#endif
+                obs.transform.position = clampedPos;
+                clampedCount++;
+            }
+        }
+
+#if UNITY_EDITOR
+        if (clampedCount > 0 && !Application.isPlaying)
+        {
+            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+#endif
+        return clampedCount;
+    }
+
+    /// <summary>
+    /// Aligns Pipe and SpawnPoint horizontally to the center of the framed play area.
+    /// </summary>
+    public void CenterPipeInPlayArea()
+    {
+        ResolveManagers();
+        if (gameFlowManager == null) return;
+
+        Rect playArea = GetPlayAreaWorldRect();
+        float centerX = playArea.center.x;
+
+        if (gameFlowManager.pipeTransform != null)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) Undo.RecordObject(gameFlowManager.pipeTransform, "Center Pipe in Play Area");
+#endif
+            Vector3 p = gameFlowManager.pipeTransform.position;
+            gameFlowManager.pipeTransform.position = new Vector3(centerX, p.y, p.z);
+        }
+
+        if (gameFlowManager.spawnPoint != null)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) Undo.RecordObject(gameFlowManager.spawnPoint, "Center SpawnPoint in Play Area");
+#endif
+            Vector3 s = gameFlowManager.spawnPoint.position;
+            gameFlowManager.spawnPoint.position = new Vector3(centerX, s.y, s.z);
+        }
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+#endif
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showPlayAreaGizmo) return;
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        Rect playArea = GetPlayAreaWorldRect();
+        Gizmos.color = new Color(0.15f, 0.78f, 0.95f, 0.75f);
+        Gizmos.DrawWireCube(playArea.center, new Vector3(playArea.width, playArea.height, 0f));
+
+        // Subtle center vertical guide for aligning Pipe and symmetric layouts
+        Gizmos.color = new Color(0.15f, 0.78f, 0.95f, 0.25f);
+        Gizmos.DrawLine(
+            new Vector3(playArea.center.x, playArea.yMin, 0f),
+            new Vector3(playArea.center.x, playArea.yMax, 0f));
     }
 
     private GameObject InstantiateObject(GameObject prefab)
@@ -529,6 +709,13 @@ public class LevelEditorManager : MonoBehaviour
 
         PopulateLevelDataFromScene(asset);
         EditorUtility.SetDirty(asset);
+
+        List<GameObject> outOfBounds = GetOutOfBoundsSceneObjects();
+        if (outOfBounds.Count > 0)
+        {
+            string names = string.Join(", ", outOfBounds.ConvertAll(o => o.name));
+            Debug.LogWarning($"[LevelEditorManager] Exported '{asset.levelName}', but {outOfBounds.Count} object(s) are outside the framed play area: {names}");
+        }
 
         // Register in LevelDatabase if not already present
         LevelDatabase db = Database;

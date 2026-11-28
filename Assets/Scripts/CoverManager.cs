@@ -124,12 +124,6 @@ public class CoverUIManager : MonoBehaviour
             draw.enabled = false;
         }
 
-        TutorialSequence tutorial = FindAnyObjectByType<TutorialSequence>();
-        if (tutorial != null)
-        {
-            tutorial.gameObject.SetActive(false);
-        }
-
         Monster[] monsters = FindObjectsByType<Monster>(FindObjectsInactive.Include);
         foreach (Monster m in monsters)
         {

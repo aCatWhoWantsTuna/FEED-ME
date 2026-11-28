@@ -426,7 +426,7 @@ public class Monster : MonoBehaviour
             Transform icon = GetCandyIconTransform();
             if (icon != null)
             {
-                icon.localPosition = new Vector3(0.7f, -0.8f, 0f);
+                icon.localPosition = new Vector3(0.7f, -1f, 0f);
             }
         }
 

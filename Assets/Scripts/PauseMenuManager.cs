@@ -16,18 +16,28 @@ public class PauseMenuManager : MonoBehaviour
     [Tooltip("Root GameObject of the ESC pause menu panel inside the Canvas. Auto-generated if left empty.")]
     public GameObject pauseMenuPanel;
 
-    [Tooltip("Button to close the pause menu and resume gameplay.")]
+    [Tooltip("Optional in-game MENU button (bottom-left) that also opens/toggles this pause dialog.")]
+    public Button menuButton;
+
+    [Tooltip("Button to close the pause menu and resume gameplay ('No :(' / ResumeButton).")]
     public Button resumeButton;
 
-    [Tooltip("Button to restart the current level.")]
+    [Tooltip("Optional button to restart the current level (not used in the 2-button leave dialog).")]
     public Button restartButton;
 
-    [Tooltip("Button to return to the Level Select screen in Level_0.")]
+    [Tooltip("Button to confirm leaving and return to the Level Select screen ('Yup.' / LevelSelectButton).")]
     public Button levelSelectButton;
 
-    [Header("-- Optional Sprites for Auto-Generation --")]
+    [Header("-- Sprites for Leave Confirmation Dialog --")]
     public Sprite windowBoardSprite;
-    public Sprite buttonFrameSprite;
+    public Sprite denyButtonSprite;
+    public Sprite confirmButtonSprite;
+    [HideInInspector] public Sprite buttonFrameSprite;
+
+    [Header("-- Dialog Layout --")]
+    [Tooltip("Anchored offset of the centered dialog window (shifted right to center inside the framed play area).")]
+    public Vector2 dialogAnchoredOffset = new Vector2(116f, 0f);
+    public Vector2 dialogSize = new Vector2(960f, 668f);
 
     [Header("-- Optional Component References --")]
     [Tooltip("Reference to VictoryPanel so ESC is ignored after clearing the level (auto-found if left empty).")]
@@ -104,11 +114,30 @@ public class PauseMenuManager : MonoBehaviour
     /// </summary>
     public void AutoResolveAndBindButtons()
     {
+        // Resolve and bind the bottom-left MENU button on the main Canvas
+        if (menuButton == null)
+        {
+            Canvas canvas = FindTargetCanvas();
+            if (canvas != null)
+            {
+                Transform menuTf = canvas.transform.Find("MenuButton");
+                if (menuTf != null) menuButton = menuTf.GetComponent<Button>();
+            }
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.onClick.RemoveListener(TogglePauseMenu);
+            menuButton.onClick.AddListener(TogglePauseMenu);
+        }
+
         if (pauseMenuPanel == null) return;
 
         if (resumeButton == null)
         {
-            Transform t = pauseMenuPanel.transform.Find("Window/ResumeButton");
+            Transform t = pauseMenuPanel.transform.Find("Window/DenyButton");
+            if (t == null) t = pauseMenuPanel.transform.Find("Window/ResumeButton");
+            if (t == null) t = pauseMenuPanel.transform.Find("DenyButton");
             if (t == null) t = pauseMenuPanel.transform.Find("ResumeButton");
             if (t != null) resumeButton = t.GetComponent<Button>();
         }
@@ -122,7 +151,9 @@ public class PauseMenuManager : MonoBehaviour
 
         if (levelSelectButton == null)
         {
-            Transform t = pauseMenuPanel.transform.Find("Window/LevelSelectButton");
+            Transform t = pauseMenuPanel.transform.Find("Window/ConfirmButton");
+            if (t == null) t = pauseMenuPanel.transform.Find("Window/LevelSelectButton");
+            if (t == null) t = pauseMenuPanel.transform.Find("ConfirmButton");
             if (t == null) t = pauseMenuPanel.transform.Find("LevelSelectButton");
             if (t != null) levelSelectButton = t.GetComponent<Button>();
         }
@@ -170,8 +201,9 @@ public class PauseMenuManager : MonoBehaviour
             return pauseMenuPanel;
         }
 
-        // 1. Root Full-Screen Dimmer Overlay
+        // 1. Root Full-Screen Blocker Overlay (subtle tint so the level stays visible like the design mockup)
         pauseMenuPanel = new GameObject("PauseMenuPanel", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        pauseMenuPanel.layer = targetCanvas.gameObject.layer;
         pauseMenuPanel.transform.SetParent(targetCanvas.transform, false);
         pauseMenuPanel.transform.SetAsLastSibling();
 
@@ -182,70 +214,140 @@ public class PauseMenuManager : MonoBehaviour
         rootRt.sizeDelta = Vector2.zero;
 
         Image overlayImg = pauseMenuPanel.GetComponent<Image>();
-        overlayImg.color = new Color(0f, 0f, 0f, 0.55f);
+        overlayImg.color = new Color(0f, 0f, 0f, 0.08f);
+        overlayImg.raycastTarget = true;
 
-        // 2. Centered Dialog Window
+        // 2. Centered Leave Confirmation Window (aligned to the framed play area center)
         GameObject windowObj = new GameObject("Window", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        windowObj.layer = targetCanvas.gameObject.layer;
         windowObj.transform.SetParent(pauseMenuPanel.transform, false);
 
         RectTransform winRt = windowObj.GetComponent<RectTransform>();
         winRt.anchorMin = new Vector2(0.5f, 0.5f);
         winRt.anchorMax = new Vector2(0.5f, 0.5f);
-        winRt.anchoredPosition = Vector2.zero;
-        winRt.sizeDelta = new Vector2(680f, 600f);
+        winRt.anchoredPosition = dialogAnchoredOffset;
+        winRt.sizeDelta = dialogSize;
 
         Image winImg = windowObj.GetComponent<Image>();
+        winImg.raycastTarget = false;
         if (windowBoardSprite != null)
         {
             winImg.sprite = windowBoardSprite;
             winImg.color = Color.white;
+            winImg.preserveAspect = true;
         }
         else
         {
-            winImg.color = new Color(0.97f, 0.95f, 0.90f, 1f);
+            winImg.color = new Color(1f, 1f, 1f, 0.92f);
         }
 
-        // 3. Title Text ("PAUSED")
-        CreateText(
-            "TitleText",
-            windowObj.transform,
-            new Vector2(0f, 195f),
-            new Vector2(520f, 80f),
-            "PAUSED",
-            52f);
+        // Reset legacy button references before binding the new 2-button layout
+        resumeButton = null;
+        restartButton = null;
+        levelSelectButton = null;
 
-        // 4. Resume Button
-        resumeButton = CreateMenuButton(
-            "ResumeButton",
-            windowObj.transform,
-            new Vector2(0f, 65f),
-            new Vector2(440f, 105f),
-            "RESUME",
-            36f,
-            new Color(0.82f, 0.95f, 0.68f, 1f));
+        bool hasCustomArtButtons = denyButtonSprite != null && confirmButtonSprite != null;
+        if (hasCustomArtButtons)
+        {
+            // 3. Deny Button ("No :(") — layered 1264x880 sprite aligned to Window, with exact raycastPadding
+            resumeButton = CreateLayeredDialogButton(
+                "DenyButton",
+                windowObj.transform,
+                denyButtonSprite,
+                new Vector4(
+                    dialogSize.x * 0.212f,
+                    dialogSize.y * 0.248f,
+                    dialogSize.x * 0.551f,
+                    dialogSize.y * 0.625f));
 
-        // 5. Restart Button
-        restartButton = CreateMenuButton(
-            "RestartButton",
-            windowObj.transform,
-            new Vector2(0f, -65f),
-            new Vector2(440f, 105f),
-            "RESTART",
-            36f,
-            new Color(0.95f, 0.92f, 0.78f, 1f));
+            // 4. Confirm Button ("Yup.") — layered 1264x880 sprite aligned to Window, with exact raycastPadding
+            levelSelectButton = CreateLayeredDialogButton(
+                "ConfirmButton",
+                windowObj.transform,
+                confirmButtonSprite,
+                new Vector4(
+                    dialogSize.x * 0.543f,
+                    dialogSize.y * 0.246f,
+                    dialogSize.x * 0.220f,
+                    dialogSize.y * 0.625f));
+        }
+        else
+        {
+            // Fallback text buttons if custom sprites are not assigned
+            CreateText(
+                "TitleText",
+                windowObj.transform,
+                new Vector2(0f, 80f),
+                new Vector2(680f, 140f),
+                "You are about to leave this level.\nAre you sure?",
+                40f);
 
-        // 6. Level Select Button
-        levelSelectButton = CreateMenuButton(
-            "LevelSelectButton",
-            windowObj.transform,
-            new Vector2(0f, -195f),
-            new Vector2(440f, 105f),
-            "LEVEL SELECT",
-            36f,
-            new Color(0.82f, 0.90f, 0.98f, 1f));
+            resumeButton = CreateMenuButton(
+                "DenyButton",
+                windowObj.transform,
+                new Vector2(-145f, -95f),
+                new Vector2(230f, 84f),
+                "No :(",
+                34f,
+                new Color(0.88f, 0.84f, 0.85f, 1f));
+
+            levelSelectButton = CreateMenuButton(
+                "ConfirmButton",
+                windowObj.transform,
+                new Vector2(145f, -95f),
+                new Vector2(230f, 84f),
+                "Yup.",
+                34f,
+                new Color(0.96f, 0.22f, 0.36f, 1f));
+        }
 
         AutoResolveAndBindButtons();
         return pauseMenuPanel;
+    }
+
+    private Button CreateLayeredDialogButton(
+        string name,
+        Transform parent,
+        Sprite sprite,
+        Vector4 raycastPadding)
+    {
+        GameObject btnObj = new GameObject(
+            name,
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(Image),
+            typeof(Button),
+            typeof(UIButtonSound));
+        btnObj.layer = parent.gameObject.layer;
+        btnObj.transform.SetParent(parent, false);
+
+        RectTransform rt = btnObj.GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+        rt.localScale = Vector3.one;
+
+        Image img = btnObj.GetComponent<Image>();
+        img.sprite = sprite;
+        img.color = Color.white;
+        img.preserveAspect = true;
+        img.raycastTarget = true;
+        img.raycastPadding = raycastPadding;
+
+        Button btn = btnObj.GetComponent<Button>();
+        Navigation nav = btn.navigation;
+        nav.mode = Navigation.Mode.None;
+        btn.navigation = nav;
+
+        ColorBlock colors = btn.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(0.95f, 0.95f, 0.95f, 1f);
+        colors.pressedColor = new Color(0.82f, 0.82f, 0.82f, 1f);
+        colors.selectedColor = Color.white;
+        btn.colors = colors;
+
+        return btn;
     }
 
     private Canvas FindTargetCanvas()

@@ -34,6 +34,8 @@ public class GameFlowManager : MonoBehaviour
     public Image playPauseButtonImage;
     public Sprite playIcon;
     public Sprite pauseIcon;
+    [Tooltip("Optional TextMeshProUGUI inside the top-left of the game frame displaying the current level (e.g., LEVEL 5).")]
+    public TextMeshProUGUI levelTitleText;
 
     [Header("-- Pipe Animation --")]
     public Transform pipeTransform;
@@ -112,6 +114,8 @@ public class GameFlowManager : MonoBehaviour
             editorManager.ApplyLevelDataToScene(levelToLoad);
         }
 
+        UpdateLevelTitleUI(levelToLoad);
+
         // Auto-discover monsters in the scene if none are assigned or if references are missing
         bool needsMonsterRefresh = allMonstersInLevel == null || allMonstersInLevel.Length == 0;
         if (!needsMonsterRefresh)
@@ -130,6 +134,54 @@ public class GameFlowManager : MonoBehaviour
         {
             allMonstersInLevel = FindObjectsByType<Monster>(FindObjectsInactive.Exclude);
         }
+    }
+
+    /// <summary>
+    /// Updates the in-frame Level Title label (e.g., "LEVEL 5") based on the active LevelData.
+    /// </summary>
+    public void UpdateLevelTitleUI(LevelData levelData)
+    {
+        if (levelTitleText == null)
+        {
+            Canvas canvas = previewPanel != null ? previewPanel.GetComponentInParent<Canvas>() : FindAnyObjectByType<Canvas>();
+            if (canvas != null)
+            {
+                Transform titleTf = canvas.transform.Find("LevelTitleText");
+                if (titleTf != null)
+                {
+                    levelTitleText = titleTf.GetComponent<TextMeshProUGUI>();
+                }
+            }
+        }
+
+        if (levelTitleText == null) return;
+
+        string rawName = levelData != null && !string.IsNullOrEmpty(levelData.levelName)
+            ? levelData.levelName
+            : SceneManager.GetActiveScene().name;
+
+        levelTitleText.text = FormatLevelDisplayTitle(rawName);
+    }
+
+    private static string FormatLevelDisplayTitle(string rawName)
+    {
+        if (string.IsNullOrWhiteSpace(rawName)) return "LEVEL 1";
+
+        string trimmed = rawName.Trim();
+        // Extract trailing digits from names like "Lv5", "Level_5", "Level 5"
+        int digitStart = trimmed.Length;
+        while (digitStart > 0 && char.IsDigit(trimmed[digitStart - 1]))
+        {
+            digitStart--;
+        }
+
+        if (digitStart < trimmed.Length)
+        {
+            string numberPart = trimmed.Substring(digitStart);
+            return "LEVEL " + numberPart;
+        }
+
+        return trimmed.ToUpperInvariant();
     }
 
     /// <summary>
